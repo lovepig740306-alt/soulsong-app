@@ -1,0 +1,18 @@
+{
+  "name": "SoulSong 隨身音樂 MV 館",
+  "short_name": "SoulSong MV",
+  "description": "校園行政三部曲與專屬紀念單曲 — 隨身 320kbps 音樂與 100% 拍點同步歌詞 MV 播放器",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#090b12",
+  "theme_color": "#090b12",
+  "icons": [
+    {
+      "src": "icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

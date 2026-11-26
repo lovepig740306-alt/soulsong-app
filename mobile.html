@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SoulSong MV">
+<meta name="theme-color" content="#090b12">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-512.jpg">
+<title>SoulSong 隨身音樂 MV 館｜校園行政三部曲 & 專屬紀念單曲</title>
+<style>
+  :root {
+    --bg-dark: #090b12;
+    --bg-card: rgba(22, 26, 40, 0.9);
+    --bg-glass: rgba(15, 18, 29, 0.94);
+    --accent: #ff477e;
+    --accent-2: #7c4dff;
+    --accent-gold: #ffb703;
+    --text-main: #f8f9fa;
+    --text-sub: #a0aab8;
+    --border-subtle: rgba(255, 255, 255, 0.11);
+    --safe-top: env(safe-area-inset-top, 10px);
+    --safe-bottom: env(safe-area-inset-bottom, 14px);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: radial-gradient(circle at 50% 0%, #1e1838 0%, #090b12 65%);
+    color: var(--text-main);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding-bottom: calc(98px + var(--safe-bottom));
+  }
+
+  .app-container {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(9, 11, 18, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: calc(var(--safe-top) + 8px) 16px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 11px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    box-shadow: 0 4px 14px rgba(255, 71, 126, 0.35);
+  }
+
+  .brand-title h1 {
+    font-size: 16.5px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    background: linear-gradient(90deg, #fff, #ffd6e4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-title p {
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 7px;
+  }
+
+  .icon-btn {
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+  }
+
+  .icon-btn.highlight {
+    background: linear-gradient(135deg, rgba(255,71,126,0.28), rgba(124,77,255,0.28));
+    border-color: rgba(255, 71, 126, 0.5);
+  }
+
+  /* Category Filter Pills */
+  .category-bar {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .category-bar::-webkit-scrollbar { display: none; }
+
+  .cat-pill {
+    flex-shrink: 0;
+    padding: 7px 13px;
+    border-radius: 99px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cat-pill.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 3px 12px rgba(255, 71, 126, 0.35);
+  }
+
+  /* Mode Switcher */
+  .mode-bar {
+    display: flex;
+    margin: 12px 16px 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 4px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .mode-btn {
+    flex: 1;
+    text-align: center;
+    padding: 9px 10px;
+    font-size: 13px;
+    font-weight: 800;
+    border-radius: 10px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.22s;
+  }
+
+  .mode-btn.active {
+    background: linear-gradient(135deg, rgba(255,71,126,0.35), rgba(124,77,255,0.35));
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Active Stage Area */
+  .stage-container {
+    margin: 4px 16px 14px;
+    background: var(--bg-card);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.48);
+    position: relative;
+  }
+
+  /* MV Mode */
+  .mv-stage {
+    position: relative;
+    width: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mv-video {
+    width: 100%;
+    max-height: 60vh;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
+
+  .mv-overlay-bar {
+    width: 100%;
+    padding: 9px 14px;
+    background: linear-gradient(180deg, rgba(12,14,24,0.95), rgba(16,19,32,0.98));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .mv-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.13);
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    padding: 3px 9px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  /* Audio + Dynamic LRC Stage */
+  .audio-stage {
+    display: none;
+    padding: 16px 15px 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .now-playing-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .vinyl-disc {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    animation: spin 16s linear infinite;
+    animation-play-state: paused;
+    flex-shrink: 0;
+  }
+
+  .vinyl-disc.playing {
+    animation-play-state: running;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .np-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .np-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    background: rgba(255, 183, 3, 0.14);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+
+  .np-title {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .np-sub {
+    font-size: 12px;
+    color: var(--text-sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+  }
+
+  /* Dynamic Scrolling Lyrics Box */
+  .lrc-box {
+    width: 100%;
+    height: 240px;
+    overflow-y: auto;
+    background: rgba(8, 10, 18, 0.72);
+    border-radius: 16px;
+    padding: 18px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    scroll-behavior: smooth;
+  }
+
+  .lrc-line {
+    padding: 7px 6px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.45);
+    transition: all 0.22s ease;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .lrc-line.active {
+    color: #fff;
+    font-size: 17.5px;
+    font-weight: 800;
+    background: rgba(255, 71, 126, 0.16);
+    text-shadow: 0 2px 12px rgba(255, 71, 126, 0.6);
+    transform: scale(1.02);
+  }
+
+  /* Version Selector Bar */
+  .version-selector {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .version-selector::-webkit-scrollbar { display: none; }
+
+  .ver-chip {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--text-sub);
+    cursor: pointer;
+  }
+
+  .ver-chip.active {
+    background: rgba(255, 71, 126, 0.25);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255, 71, 126, 0.3);
+  }
+
+  /* Quick Download Row */
+  .download-strip {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px 12px;
+    background: rgba(0, 0, 0, 0.28);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .dl-btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 8px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .dl-btn.primary {
+    background: linear-gradient(135deg, rgba(255,71,126,0.32), rgba(124,77,255,0.32));
+    border-color: rgba(255, 71, 126, 0.55);
+  }
+
+  /* Song Playlist Section */
+  .playlist-section {
+    padding: 4px 16px 24px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .section-head h2 {
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .section-head span {
+    font-size: 12px;
+    color: var(--text-sub);
+  }
+
+  .song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .song-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 11px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .song-card.active {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(255, 71, 126, 0.18), rgba(124, 77, 255, 0.14));
+    box-shadow: 0 6px 20px rgba(255, 71, 126, 0.22);
+  }
+
+  .song-thumb {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .song-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .song-recipient {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-bottom: 2px;
+  }
+
+  .song-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .song-style {
+    font-size: 11.5px;
+    color: var(--text-sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+  }
+
+  .song-play-indicator {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .song-card.active .song-play-indicator {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Bottom Sticky Mini Player */
+  .bottom-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--bg-glass);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 8px 16px calc(10px + var(--safe-bottom));
+    box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.55);
+  }
+
+  .bottom-inner {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .time-lbl {
+    font-size: 11px;
+    color: var(--text-sub);
+    font-variant-numeric: tabular-nums;
+    width: 36px;
+  }
+
+  .progress-slider {
+    flex: 1;
+    accent-color: var(--accent);
+    height: 4px;
+    cursor: pointer;
+  }
+
+  .controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mini-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .mini-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .mini-text {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .mini-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mini-sub {
+    font-size: 11px;
+    color: var(--text-sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .transport-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ctrl-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .play-main-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(255, 71, 126, 0.4);
+  }
+
+  /* Modal for QR Code & Share */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal-box {
+    background: #141826;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 22px;
+    max-width: 390px;
+    width: 100%;
+    padding: 20px 18px;
+    text-align: center;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+  }
+
+  .modal-box h3 {
+    font-size: 17.5px;
+    margin-bottom: 6px;
+  }
+
+  .modal-box p {
+    font-size: 12.5px;
+    color: var(--text-sub);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .qr-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    background: #fff;
+    padding: 10px;
+    margin: 0 auto 12px;
+    display: block;
+  }
+
+  .url-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 12.5px;
+    color: var(--accent-gold);
+    word-break: break-all;
+    margin-bottom: 10px;
+  }
+
+  .copy-btn {
+    width: 100%;
+    padding: 9px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  .install-steps {
+    text-align: left;
+    font-size: 12px;
+    color: #d0d7e2;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 11px 13px;
+    border-radius: 12px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .close-modal-btn {
+    width: 100%;
+    padding: 11px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-logo">🎵</div>
+        <div class="brand-title">
+          <h1>SoulSong 隨身音樂 MV 館</h1>
+          <p>100% 拍點同步歌詞 MV・320kbps 隨身聽</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn highlight" onclick="shareApp()">🔗 分享給同事親友</button>
+        <button class="icon-btn" onclick="openQrModal()">📱 安裝/QR</button>
+      </div>
+    </div>
+
+    <div class="category-bar" id="categoryBar">
+      <button class="cat-pill active" onclick="filterCategory('all', this)">全部曲目 (10首/16版)</button>
+      <button class="cat-pill" onclick="filterCategory('trilogy', this)">🏫 校園行政三部曲 (3首/8版)</button>
+      <button class="cat-pill" onclick="filterCategory('named', this)">🔥 學務處六人真名版 (2版)</button>
+      <button class="cat-pill" onclick="filterCategory('dedication', this)">💝 親友恩師紀念單曲 (6首)</button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- Mode Switcher -->
+    <div class="mode-bar">
+      <div class="mode-btn active" id="modeMvBtn" onclick="setPlayMode('mv')">🎬 直式同步歌詞 MV</div>
+      <div class="mode-btn" id="modeAudioBtn" onclick="setPlayMode('audio')">🎧 隨身聽 + 動態歌詞</div>
+    </div>
+
+    <!-- Main Stage -->
+    <section class="stage-container">
+      <!-- MV Player Stage -->
+      <div class="mv-stage" id="mvStage">
+        <video id="mvVideo" class="mv-video" playsinline webkit-playsinline controls preload="metadata"></video>
+        <div class="mv-overlay-bar">
+          <span class="mv-badge">⚡ 100% 拍點對齊・單句快節奏版</span>
+          <span id="mvSongLabel" style="font-size:11.5px;color:var(--text-sub);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+        </div>
+      </div>
+
+      <!-- Audio + Dynamic LRC Stage -->
+      <div class="audio-stage" id="audioStage">
+        <div class="now-playing-header">
+          <img id="npCover" class="vinyl-disc" src="icon-512.jpg" alt="Cover">
+          <div class="np-meta">
+            <span class="np-tag" id="npRecipient">校園行政三部曲</span>
+            <div class="np-title" id="npTitle">載入中...</div>
+            <div class="np-sub" id="npStyle"></div>
+          </div>
+        </div>
+        <div class="lrc-box" id="lrcBox">
+          <div class="lrc-line active">點選任一行歌詞可直接跳轉播放</div>
+        </div>
+        <audio id="bgAudio" preload="metadata" style="display:none;"></audio>
+      </div>
+
+      <!-- Version Selector -->
+      <div class="version-selector" id="versionSelector"></div>
+
+      <!-- One-tap Download Strip -->
+      <div class="download-strip">
+        <a id="dlMp3Btn" class="dl-btn primary" href="#" download>⬇️ 下載 MP3</a>
+        <a id="dlMvBtn" class="dl-btn" href="#" download>🎬 下載 MV</a>
+        <a id="dlLrcBtn" class="dl-btn" href="#" download>📝 下載歌詞</a>
+      </div>
+    </section>
+
+    <!-- Playlist -->
+    <section class="playlist-section">
+      <div class="section-head">
+        <h2 id="playlistHeading">全部精選曲目</h2>
+        <span id="playlistCount">共 10 首・16 個版本</span>
+      </div>
+      <div class="song-list" id="songList"></div>
+    </section>
+  </div>
+
+  <!-- Sticky Bottom Transport Bar -->
+  <div class="bottom-player">
+    <div class="bottom-inner">
+      <div class="progress-row">
+        <span class="time-lbl" id="curTimeLbl">00:00</span>
+        <input type="range" id="seekSlider" class="progress-slider" min="0" max="100" value="0" step="0.1">
+        <span class="time-lbl" id="durTimeLbl">00:00</span>
+      </div>
+      <div class="controls-row">
+        <div class="mini-meta">
+          <img id="miniCover" class="mini-cover" src="icon-512.jpg" alt="cover">
+          <div class="mini-text">
+            <div class="mini-title" id="miniTitle">請選擇歌曲</div>
+            <div class="mini-sub" id="miniSub">SoulSong 隨身音樂館</div>
+          </div>
+        </div>
+        <div class="transport-btns">
+          <button class="ctrl-btn" onclick="prevTrack()" title="上一首">⏮</button>
+          <button class="play-main-btn" id="mainPlayBtn" onclick="togglePlay()">▶</button>
+          <button class="ctrl-btn" onclick="nextTrack()" title="下一首">⏭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code & Install Guide Modal -->
+  <div class="modal-backdrop" id="qrModal" onclick="if(event.target===this)closeQrModal()">
+    <div class="modal-box">
+      <h3>📱 手機掃碼開啟 & 加入主畫面</h3>
+      <p>任何手機（4G / 5G / Wi-Fi）皆可直接掃碼或點擊下方公開網址開啟：</p>
+      <img class="qr-img" id="qrCodeImg" src="qrcode_public.png" alt="QR Code">
+      <div class="url-badge" id="appUrlBadge">https://lovepig740306-alt.github.io/soulsong-app/</div>
+      <button class="copy-btn" onclick="copyAppUrl()">📋 一鍵複製公開網址（可貼到 LINE 群組）</button>
+      <div class="install-steps">
+        <strong>💡 如何安裝成手機桌面 APP 圖示：</strong><br>
+        • <strong>iPhone (Safari)</strong>：點選底部「分享」按鈕 📤 ➔ 選擇<strong>「加入主畫面」</strong>。<br>
+        • <strong>Android (Chrome)</strong>：點選右上角「⋮」選單 ➔ 選擇<strong>「安裝應用程式」</strong>或<strong>「加到主畫面」</strong>。
+      </div>
+      <button class="close-modal-btn" onclick="closeQrModal()">開始聽歌看 MV</button>
+    </div>
+  </div>
+
+<script>
+  const EMBEDDED_SONGS = [{"id": "xuewuchu_title", "category": "trilogy", "title": "《學務處不是許願池》（純職位通用版）", "recipient": "🏫 校園行政三部曲・學務處", "style": "學務主任 × 訓育組長 × 體衛組長 × 校安人員 × 幹事", "cover": "media/track_01_cover.jpg", "versions": [{"id": "xuewuchu_rock_title_1", "label": "🎸 純重節奏搖滾 v1", "genre": "120 BPM 純重節奏另類搖滾 × 炸裂電吉他 × 快嘴饒舌怒吼", "duration": "04:45", "mp3": "media/track_01_mp3.mp3", "mv": "media/track_01_mv.mp4", "cover": "media/track_01_cover.jpg", "lrc": "media/track_01_lrc.lrc", "lrc_text": "[ti:學務處不是許願池（120 BPM 純重節奏搖滾 × 純職位通用版 (04:45)）]\n[ar:學務處六人組（學務主任、訓育組長、體衛組長、校安人員、幹事）]\n[al:校園行政三部曲 - 學務處重搖滾戰歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《學務處不是許願池》（純重節奏搖滾・純職位版）\n[00:02.00]學生吵架，找學務處！\n[00:05.32]學生違規，找學務處！\n[00:08.32]家長抱怨，找學務處！\n[00:11.28]自己不處理，還是找學務處！\n[00:14.48]請問——學務處是行政單位，\n[00:18.88]還是你們的萬能許願池？\n[00:21.92]（鼓聲重擊・重節奏電吉他刷弦爆發）\n[00:31.12]一早電話響不停\n[00:32.48]屁股還沒坐熱又有事情\n[00:34.40]早餐放到中午還沒動靜\n[00:36.28]連上廁所都要看準時機\n[00:38.20]導師當了好幾年\n[00:39.48]遇到事情像是第一天\n[00:41.12]年年宣導 年年不見\n[00:43.04]一問三不知 演技倒是很熟練！\n[00:45.68]班級規範不知道\n[00:46.88]學生違規不知道\n[00:48.08]處理流程不知道\n[00:49.28]只有學務處在哪裡最知道！\n[00:50.88]導師會報講了多少遍\n[00:52.60]群組公告傳了多少件\n[00:54.32]資料送到你的眼前\n[00:55.92]最後還是「沒有人跟我說過耶！」\n[00:58.08]年資不斷往上加\n[00:59.40]經驗難道放暑假？\n[01:00.72]教書教了大半輩子\n[01:02.04]怎麼遇到問題又變成新手啦！\n[01:03.92]我們有血 我們有肉\n[01:05.40]我們也有情緒和感受\n[01:07.12]不是穿上行政的外衣以後\n[01:09.08]就該承受所有人的要求！\n[01:10.92]學務處不是許願池！\n[01:12.80]更不是責任的垃圾場！\n[01:14.92]別把你不想處理的事情\n[01:17.12]全部丟給我們收場！\n[01:18.92]學務處不是消防隊！\n[01:20.80]每天替你們四處救火！\n[01:22.88]你們一句「辛苦了」輕輕帶過\n[01:24.92]我們卻忙到連飯都沒得吃啊！\n[01:27.12]導師不是掛名的！\n[01:28.60]行政不是萬能的！\n[01:30.08]責任不是用來推的！\n[01:31.28]學務處的人也是人生父母養的！\n[01:32.88]年資增加 責任不能蒸發！經驗累積\n[01:34.88]不是累積裝傻！\n[01:36.32]該做的事 不要裝聾作啞！我們是來教育\n[01:39.68]不是來當你保母啊！\n[01:42.08]校安人員忙到快要原地升天\n[01:43.72]耐心快要耗光\n[01:44.88]體衛組長的事情一件接一件\n[01:46.64]忙到懷疑人生方向\n[01:47.92]才剛處理完眼前的事件\n[01:49.36]每天在混亂中奔忙\n[01:50.48]訓育組長的校安通報與活動寫到地老天荒\n[01:53.12]幹事的電話與行政業務也接個沒完！\n[01:55.52]最強大的學務主任坐鎮前線\n[01:57.12]一個人扛著風浪\n[01:58.32]扛住壓力\n[01:59.56]還要保護我們這群受傷的兵將\n[02:01.32]六個人撐起整個學務戰線\n[02:03.20]每天上演校園生存考驗\n[02:04.88]別人下班享受悠閒\n[02:06.40]我們還在收拾今天的殘局與抱怨！\n[02:08.48]你有你的班級 我有我的業務\n[02:10.12]不是掛著導師的名 就不用付出\n[02:11.92]學生有問題 你不先了解清楚\n[02:13.68]一句「請學務處處理」就結束！\n[02:15.32]不知道、不清楚、沒聽說！\n[02:16.92]不會處理、不方便、事情多！\n[02:18.72]三百六十五天都有理由\n[02:20.60]只有推卸責任從來沒有出錯！\n[02:22.88]有事找行政 沒事嫌行政\n[02:24.44]需要幫忙時態度特別誠懇\n[02:26.08]我們可以協助！\n[02:27.20]但不代表必須全部接手！\n[02:28.72]我們願意承擔！\n[02:30.12]但不代表你就能兩手空空！\n[02:32.08]其實我們也曾滿懷理想\n[02:35.20]希望每個孩子都能健康成長\n[02:38.88]不是學生讓我們失去熱情\n[02:40.92]而是大人之間缺少了同理心\n[02:43.12]我們也想準時回家\n[02:45.00]也想好好吃頓晚餐\n[02:46.88]別讓願意負責的人\n[02:51.04]最後只剩下滿身傷痕。\n[02:55.68]學務處不是許願池！\n[02:57.68]更不是你卸責的天堂！\n[02:59.92]請把你的責任扛在肩上\n[03:02.00]別再讓我們獨自抵擋！\n[03:03.92]訓育組長！體衛組長！\n[03:06.20]校安人員！幹事！\n[03:07.92]還有最強大的學務主任坐鎮戰場！\n[03:12.08]六個人的命 也是命啊！六個人的累\n[03:13.96]誰來體諒？\n[03:15.28]不要讓認真負責的人忙到陣亡\n[03:17.68]不負責任的人卻能準時下班！\n[03:19.92]拒絕推卸！\n[03:21.52]拒絕擺爛！拒絕把責任全部往外轉！\n[03:23.68]教育不是六個人的戰場\n[03:26.08]而是每一位教育工作者共同的擔當！\n[03:29.40]導師當越久，問題越多。\n[03:32.56]公告發越多，看的人越少。\n[03:36.08]原來年資可以累積，\n[03:38.44]責任卻可以歸零。\n[03:40.48]謝謝訓育組長。謝謝體衛組長。\n[03:44.80]謝謝校安人員。謝謝幹事。\n[03:48.40]更謝謝我們強大的學務主任！\n[03:55.12]我們學務處六人組——\n[03:57.92]上班靠責任，做事靠良心，\n[04:01.84]續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[04:07.28]有福不一定同享，\n[04:09.44]但有事絕對一起扛！\n[04:11.92]請各位老師記住：資深，\n[04:14.72]不代表可以裝傻；\n[04:16.88]不會，可以學；不懂，\n[04:19.76]可以問；但不願意負責，就是態度問題！\n[04:23.68]我們是學務處，\n[04:25.72]不是失職收容中心！\n[04:28.40]拜託！自己的責任——自！\n[04:31.60]己！扛！\n[04:33.88]自己的責任——自！己！\n[04:38.36]扛！（全員怒吼・重金屬電吉他爆發收尾）", "note": "純職位通用版（不出現個人真名），123 張快節奏重拍字卡 100% 對齊"}, {"id": "xuewuchu_rock_title_2", "label": "🎸 純重節奏搖滾 v2", "genre": "120 BPM 疾走重節奏搖滾 × 雙主唱交錯怒吼", "duration": "04:39", "mp3": "media/track_02_mp3.mp3", "mv": "media/track_02_mv.mp4", "cover": "media/track_02_cover.jpg", "lrc": "media/track_01_lrc.lrc", "lrc_text": "[ti:學務處不是許願池（120 BPM 純重節奏搖滾 × 純職位通用版 (04:45)）]\n[ar:學務處六人組（學務主任、訓育組長、體衛組長、校安人員、幹事）]\n[al:校園行政三部曲 - 學務處重搖滾戰歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《學務處不是許願池》（純重節奏搖滾・純職位版）\n[00:02.00]學生吵架，找學務處！\n[00:05.32]學生違規，找學務處！\n[00:08.32]家長抱怨，找學務處！\n[00:11.28]自己不處理，還是找學務處！\n[00:14.48]請問——學務處是行政單位，\n[00:18.88]還是你們的萬能許願池？\n[00:21.92]（鼓聲重擊・重節奏電吉他刷弦爆發）\n[00:31.12]一早電話響不停\n[00:32.48]屁股還沒坐熱又有事情\n[00:34.40]早餐放到中午還沒動靜\n[00:36.28]連上廁所都要看準時機\n[00:38.20]導師當了好幾年\n[00:39.48]遇到事情像是第一天\n[00:41.12]年年宣導 年年不見\n[00:43.04]一問三不知 演技倒是很熟練！\n[00:45.68]班級規範不知道\n[00:46.88]學生違規不知道\n[00:48.08]處理流程不知道\n[00:49.28]只有學務處在哪裡最知道！\n[00:50.88]導師會報講了多少遍\n[00:52.60]群組公告傳了多少件\n[00:54.32]資料送到你的眼前\n[00:55.92]最後還是「沒有人跟我說過耶！」\n[00:58.08]年資不斷往上加\n[00:59.40]經驗難道放暑假？\n[01:00.72]教書教了大半輩子\n[01:02.04]怎麼遇到問題又變成新手啦！\n[01:03.92]我們有血 我們有肉\n[01:05.40]我們也有情緒和感受\n[01:07.12]不是穿上行政的外衣以後\n[01:09.08]就該承受所有人的要求！\n[01:10.92]學務處不是許願池！\n[01:12.80]更不是責任的垃圾場！\n[01:14.92]別把你不想處理的事情\n[01:17.12]全部丟給我們收場！\n[01:18.92]學務處不是消防隊！\n[01:20.80]每天替你們四處救火！\n[01:22.88]你們一句「辛苦了」輕輕帶過\n[01:24.92]我們卻忙到連飯都沒得吃啊！\n[01:27.12]導師不是掛名的！\n[01:28.60]行政不是萬能的！\n[01:30.08]責任不是用來推的！\n[01:31.28]學務處的人也是人生父母養的！\n[01:32.88]年資增加 責任不能蒸發！經驗累積\n[01:34.88]不是累積裝傻！\n[01:36.32]該做的事 不要裝聾作啞！我們是來教育\n[01:39.68]不是來當你保母啊！\n[01:42.08]校安人員忙到快要原地升天\n[01:43.72]耐心快要耗光\n[01:44.88]體衛組長的事情一件接一件\n[01:46.64]忙到懷疑人生方向\n[01:47.92]才剛處理完眼前的事件\n[01:49.36]每天在混亂中奔忙\n[01:50.48]訓育組長的校安通報與活動寫到地老天荒\n[01:53.12]幹事的電話與行政業務也接個沒完！\n[01:55.52]最強大的學務主任坐鎮前線\n[01:57.12]一個人扛著風浪\n[01:58.32]扛住壓力\n[01:59.56]還要保護我們這群受傷的兵將\n[02:01.32]六個人撐起整個學務戰線\n[02:03.20]每天上演校園生存考驗\n[02:04.88]別人下班享受悠閒\n[02:06.40]我們還在收拾今天的殘局與抱怨！\n[02:08.48]你有你的班級 我有我的業務\n[02:10.12]不是掛著導師的名 就不用付出\n[02:11.92]學生有問題 你不先了解清楚\n[02:13.68]一句「請學務處處理」就結束！\n[02:15.32]不知道、不清楚、沒聽說！\n[02:16.92]不會處理、不方便、事情多！\n[02:18.72]三百六十五天都有理由\n[02:20.60]只有推卸責任從來沒有出錯！\n[02:22.88]有事找行政 沒事嫌行政\n[02:24.44]需要幫忙時態度特別誠懇\n[02:26.08]我們可以協助！\n[02:27.20]但不代表必須全部接手！\n[02:28.72]我們願意承擔！\n[02:30.12]但不代表你就能兩手空空！\n[02:32.08]其實我們也曾滿懷理想\n[02:35.20]希望每個孩子都能健康成長\n[02:38.88]不是學生讓我們失去熱情\n[02:40.92]而是大人之間缺少了同理心\n[02:43.12]我們也想準時回家\n[02:45.00]也想好好吃頓晚餐\n[02:46.88]別讓願意負責的人\n[02:51.04]最後只剩下滿身傷痕。\n[02:55.68]學務處不是許願池！\n[02:57.68]更不是你卸責的天堂！\n[02:59.92]請把你的責任扛在肩上\n[03:02.00]別再讓我們獨自抵擋！\n[03:03.92]訓育組長！體衛組長！\n[03:06.20]校安人員！幹事！\n[03:07.92]還有最強大的學務主任坐鎮戰場！\n[03:12.08]六個人的命 也是命啊！六個人的累\n[03:13.96]誰來體諒？\n[03:15.28]不要讓認真負責的人忙到陣亡\n[03:17.68]不負責任的人卻能準時下班！\n[03:19.92]拒絕推卸！\n[03:21.52]拒絕擺爛！拒絕把責任全部往外轉！\n[03:23.68]教育不是六個人的戰場\n[03:26.08]而是每一位教育工作者共同的擔當！\n[03:29.40]導師當越久，問題越多。\n[03:32.56]公告發越多，看的人越少。\n[03:36.08]原來年資可以累積，\n[03:38.44]責任卻可以歸零。\n[03:40.48]謝謝訓育組長。謝謝體衛組長。\n[03:44.80]謝謝校安人員。謝謝幹事。\n[03:48.40]更謝謝我們強大的學務主任！\n[03:55.12]我們學務處六人組——\n[03:57.92]上班靠責任，做事靠良心，\n[04:01.84]續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[04:07.28]有福不一定同享，\n[04:09.44]但有事絕對一起扛！\n[04:11.92]請各位老師記住：資深，\n[04:14.72]不代表可以裝傻；\n[04:16.88]不會，可以學；不懂，\n[04:19.76]可以問；但不願意負責，就是態度問題！\n[04:23.68]我們是學務處，\n[04:25.72]不是失職收容中心！\n[04:28.40]拜託！自己的責任——自！\n[04:31.60]己！扛！\n[04:33.88]自己的責任——自！己！\n[04:38.36]扛！（全員怒吼・重金屬電吉他爆發收尾）", "note": "純職位通用版第 2 版，123 張快節奏重拍字卡 100% 對齊"}, {"id": "xuewuchu_rnb_title_1", "label": "🎤 R&B 搖滾戰歌 v1", "genre": "120 BPM R&B 律動旁白 × 搖滾饒舌戰歌", "duration": "04:30", "mp3": "media/track_07_mp3.mp3", "mv": "media/track_07_mv.mp4", "cover": "media/track_07_cover.jpg", "lrc": "media/track_07_lrc.lrc", "lrc_text": "[ti:學務處不是許願池（純職位通用版 1：R&B 律動旁白 × 搖滾饒舌戰歌 (04:30)）]\n[ar:學務處六人組（學務主任、訓育組長、體衛組長、校安人員、幹事）]\n[al:校園行政三部曲 - 學務處戰歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《學務處不是許願池》（純職位通用版）\n[00:01.80]學生吵架，找學務處！\n[00:04.00]學生違規，找學務處！\n[00:06.08]家長抱怨，找學務處！\n[00:08.20]自己不處理，還是找學務處！\n[00:10.48]請問——學務處是行政單位，\n[00:14.72]還是你們的萬能許願池？\n[00:18.72]（R&B 搖滾重節奏電吉他進場）\n[00:23.68]一早電話響不停\n[00:25.44]屁股還沒坐熱又有事情\n[00:27.92]早餐放到中午還沒動靜\n[00:30.00]連上廁所都要看準時機\n[00:32.08]導師當了好幾年\n[00:33.88]遇到事情像是第一天\n[00:36.20]年年宣導 年年不見\n[00:38.24]一問三不知 演技倒是很熟練！\n[00:41.12]班級規範不知道\n[00:42.20]學生違規不知道\n[00:43.28]處理流程不知道\n[00:44.48]只有學務處在哪裡最知道！\n[00:46.08]導師會報講了多少遍\n[00:47.52]群組公告傳了多少件\n[00:48.88]資料送到你的眼前\n[00:51.16]最後還是「沒有人跟我說過耶！」\n[00:54.32]年資不斷往上加\n[00:55.60]經驗難道放暑假？\n[00:56.88]教書教了大半輩子\n[00:58.24]怎麼遇到問題又變成新手啦！\n[01:00.08]我們有血 我們有肉\n[01:02.08]我們也有情緒和感受\n[01:04.32]不是穿上行政的外衣以後\n[01:06.72]就該承受所有人的要求！\n[01:08.92]學務處不是許願池！\n[01:10.88]更不是責任的垃圾場！\n[01:13.12]別把你不想處理的事情\n[01:15.76]全部丟給我們收場！\n[01:17.92]學務處不是消防隊！\n[01:19.76]每天替你們四處救火！\n[01:21.92]你們一句「辛苦了」輕輕帶過\n[01:24.20]我們卻忙到連飯都沒得吃啊！\n[01:26.72]導師不是掛名的！\n[01:28.32]行政不是萬能的！\n[01:29.92]責任不是用來推的！\n[01:31.16]學務處的人也是人生父母養的！\n[01:32.88]年資增加 責任不能蒸發！經驗累積\n[01:35.12]不是累積裝傻！\n[01:36.72]該做的事 不要裝聾作啞！我們是來教育\n[01:40.64]不是來當你保母啊！\n[01:43.52]校安人員忙到快要原地升天\n[01:45.20]耐心快要耗光\n[01:46.40]體衛組長的事情一件接一件\n[01:48.08]忙到懷疑人生方向\n[01:49.32]才剛處理完眼前的事件\n[01:51.32]每天在混亂中奔忙\n[01:52.88]訓育組長的校安通報與活動寫到地老天荒\n[01:57.12]幹事的電話與行政業務也接個沒完！\n[02:01.20]最強大的學務主任坐鎮前線\n[02:03.00]一個人扛著風浪\n[02:04.32]扛住壓力\n[02:05.52]還要保護我們這群受傷的兵將\n[02:07.20]六個人撐起整個學務戰線\n[02:09.16]每天上演校園生存考驗\n[02:10.88]別人下班享受悠閒\n[02:12.72]我們還在收拾今天的殘局與抱怨！\n[02:15.20]你有你的班級 我有我的業務\n[02:17.00]不是掛著導師的名 就不用付出\n[02:18.88]學生有問題 你不先了解清楚\n[02:20.68]一句「請學務處處理」就結束！\n[02:22.32]不知道、不清楚、沒聽說！\n[02:23.68]不會處理、不方便、事情多！\n[02:25.20]三百六十五天都有理由\n[02:26.72]只有推卸責任從來沒有出錯！\n[02:28.48]有事找行政 沒事嫌行政\n[02:30.40]需要幫忙時態度特別誠懇\n[02:32.48]我們可以協助！\n[02:33.64]但不代表必須全部接手！\n[02:35.20]我們願意承擔！\n[02:36.60]但不代表你就能兩手空空！\n[02:38.48]其實我們也曾滿懷理想\n[02:40.48]希望每個孩子都能健康成長\n[02:42.88]不是學生讓我們失去熱情\n[02:44.92]而是大人之間缺少了同理心\n[02:47.12]我們也想準時回家\n[02:49.28]也想好好吃頓晚餐\n[02:51.52]別讓願意負責的人\n[02:55.16]最後只剩下滿身傷痕。\n[02:59.28]學務處不是許願池！\n[03:01.44]更不是你卸責的天堂！\n[03:03.92]請把你的責任扛在肩上\n[03:06.12]別再讓我們獨自抵擋！\n[03:08.08]訓育組長！體衛組長！\n[03:10.60]校安人員！幹事！\n[03:12.48]還有最強大的學務主任坐鎮戰場！\n[03:17.12]六個人的命 也是命啊！六個人的累\n[03:19.28]誰來體諒？\n[03:20.88]不要讓認真負責的人忙到陣亡\n[03:23.52]不負責任的人卻能準時下班！\n[03:25.92]拒絕推卸！\n[03:27.40]拒絕擺爛！拒絕把責任全部往外轉！\n[03:29.52]教育不是六個人的戰場\n[03:32.20]而是每一位教育工作者共同的擔當！\n[03:35.92]導師當越久，問題越多。\n[03:37.88]公告發越多，看的人越少。\n[03:40.08]原來年資可以累積，\n[03:42.24]責任卻可以歸零。\n[03:44.08]謝謝訓育組長。謝謝體衛組長。\n[03:46.72]謝謝校安人員。謝謝幹事。\n[03:48.88]更謝謝我們強大的學務主任！\n[03:52.72]我們學務處六人組——\n[03:54.72]上班靠責任，做事靠良心，\n[03:56.80]續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[03:59.68]有福不一定同享，\n[04:01.20]但有事絕對一起扛！\n[04:02.88]請各位老師記住：資深，\n[04:05.16]不代表可以裝傻；\n[04:06.88]不會，可以學；不懂，\n[04:08.64]可以問；但不願意負責，就是態度問題！\n[04:11.12]我們是學務處，\n[04:12.80]不是失職收容中心！\n[04:15.12]拜託！自己的責任——自！\n[04:18.16]己！扛！\n[04:20.40]自己的責任——自己扛！\n[04:24.44]（學務處六人組・純職位通用版）", "note": "純職位通用 R&B 搖滾版，123 張快節奏字卡 100% 對齊"}, {"id": "xuewuchu_rnb_title_2", "label": "🎧 都會 R&B 律動 v2", "genre": "110 BPM 都會 R&B 律動說唱 × Neo-Soul Groove", "duration": "05:58", "mp3": "media/track_08_mp3.mp3", "mv": "media/track_08_mv.mp4", "cover": "media/track_08_cover.jpg", "lrc": "media/track_07_lrc.lrc", "lrc_text": "[ti:學務處不是許願池（純職位通用版 1：R&B 律動旁白 × 搖滾饒舌戰歌 (04:30)）]\n[ar:學務處六人組（學務主任、訓育組長、體衛組長、校安人員、幹事）]\n[al:校園行政三部曲 - 學務處戰歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《學務處不是許願池》（純職位通用版）\n[00:01.80]學生吵架，找學務處！\n[00:04.00]學生違規，找學務處！\n[00:06.08]家長抱怨，找學務處！\n[00:08.20]自己不處理，還是找學務處！\n[00:10.48]請問——學務處是行政單位，\n[00:14.72]還是你們的萬能許願池？\n[00:18.72]（R&B 搖滾重節奏電吉他進場）\n[00:23.68]一早電話響不停\n[00:25.44]屁股還沒坐熱又有事情\n[00:27.92]早餐放到中午還沒動靜\n[00:30.00]連上廁所都要看準時機\n[00:32.08]導師當了好幾年\n[00:33.88]遇到事情像是第一天\n[00:36.20]年年宣導 年年不見\n[00:38.24]一問三不知 演技倒是很熟練！\n[00:41.12]班級規範不知道\n[00:42.20]學生違規不知道\n[00:43.28]處理流程不知道\n[00:44.48]只有學務處在哪裡最知道！\n[00:46.08]導師會報講了多少遍\n[00:47.52]群組公告傳了多少件\n[00:48.88]資料送到你的眼前\n[00:51.16]最後還是「沒有人跟我說過耶！」\n[00:54.32]年資不斷往上加\n[00:55.60]經驗難道放暑假？\n[00:56.88]教書教了大半輩子\n[00:58.24]怎麼遇到問題又變成新手啦！\n[01:00.08]我們有血 我們有肉\n[01:02.08]我們也有情緒和感受\n[01:04.32]不是穿上行政的外衣以後\n[01:06.72]就該承受所有人的要求！\n[01:08.92]學務處不是許願池！\n[01:10.88]更不是責任的垃圾場！\n[01:13.12]別把你不想處理的事情\n[01:15.76]全部丟給我們收場！\n[01:17.92]學務處不是消防隊！\n[01:19.76]每天替你們四處救火！\n[01:21.92]你們一句「辛苦了」輕輕帶過\n[01:24.20]我們卻忙到連飯都沒得吃啊！\n[01:26.72]導師不是掛名的！\n[01:28.32]行政不是萬能的！\n[01:29.92]責任不是用來推的！\n[01:31.16]學務處的人也是人生父母養的！\n[01:32.88]年資增加 責任不能蒸發！經驗累積\n[01:35.12]不是累積裝傻！\n[01:36.72]該做的事 不要裝聾作啞！我們是來教育\n[01:40.64]不是來當你保母啊！\n[01:43.52]校安人員忙到快要原地升天\n[01:45.20]耐心快要耗光\n[01:46.40]體衛組長的事情一件接一件\n[01:48.08]忙到懷疑人生方向\n[01:49.32]才剛處理完眼前的事件\n[01:51.32]每天在混亂中奔忙\n[01:52.88]訓育組長的校安通報與活動寫到地老天荒\n[01:57.12]幹事的電話與行政業務也接個沒完！\n[02:01.20]最強大的學務主任坐鎮前線\n[02:03.00]一個人扛著風浪\n[02:04.32]扛住壓力\n[02:05.52]還要保護我們這群受傷的兵將\n[02:07.20]六個人撐起整個學務戰線\n[02:09.16]每天上演校園生存考驗\n[02:10.88]別人下班享受悠閒\n[02:12.72]我們還在收拾今天的殘局與抱怨！\n[02:15.20]你有你的班級 我有我的業務\n[02:17.00]不是掛著導師的名 就不用付出\n[02:18.88]學生有問題 你不先了解清楚\n[02:20.68]一句「請學務處處理」就結束！\n[02:22.32]不知道、不清楚、沒聽說！\n[02:23.68]不會處理、不方便、事情多！\n[02:25.20]三百六十五天都有理由\n[02:26.72]只有推卸責任從來沒有出錯！\n[02:28.48]有事找行政 沒事嫌行政\n[02:30.40]需要幫忙時態度特別誠懇\n[02:32.48]我們可以協助！\n[02:33.64]但不代表必須全部接手！\n[02:35.20]我們願意承擔！\n[02:36.60]但不代表你就能兩手空空！\n[02:38.48]其實我們也曾滿懷理想\n[02:40.48]希望每個孩子都能健康成長\n[02:42.88]不是學生讓我們失去熱情\n[02:44.92]而是大人之間缺少了同理心\n[02:47.12]我們也想準時回家\n[02:49.28]也想好好吃頓晚餐\n[02:51.52]別讓願意負責的人\n[02:55.16]最後只剩下滿身傷痕。\n[02:59.28]學務處不是許願池！\n[03:01.44]更不是你卸責的天堂！\n[03:03.92]請把你的責任扛在肩上\n[03:06.12]別再讓我們獨自抵擋！\n[03:08.08]訓育組長！體衛組長！\n[03:10.60]校安人員！幹事！\n[03:12.48]還有最強大的學務主任坐鎮戰場！\n[03:17.12]六個人的命 也是命啊！六個人的累\n[03:19.28]誰來體諒？\n[03:20.88]不要讓認真負責的人忙到陣亡\n[03:23.52]不負責任的人卻能準時下班！\n[03:25.92]拒絕推卸！\n[03:27.40]拒絕擺爛！拒絕把責任全部往外轉！\n[03:29.52]教育不是六個人的戰場\n[03:32.20]而是每一位教育工作者共同的擔當！\n[03:35.92]導師當越久，問題越多。\n[03:37.88]公告發越多，看的人越少。\n[03:40.08]原來年資可以累積，\n[03:42.24]責任卻可以歸零。\n[03:44.08]謝謝訓育組長。謝謝體衛組長。\n[03:46.72]謝謝校安人員。謝謝幹事。\n[03:48.88]更謝謝我們強大的學務主任！\n[03:52.72]我們學務處六人組——\n[03:54.72]上班靠責任，做事靠良心，\n[03:56.80]續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[03:59.68]有福不一定同享，\n[04:01.20]但有事絕對一起扛！\n[04:02.88]請各位老師記住：資深，\n[04:05.16]不代表可以裝傻；\n[04:06.88]不會，可以學；不懂，\n[04:08.64]可以問；但不願意負責，就是態度問題！\n[04:11.12]我們是學務處，\n[04:12.80]不是失職收容中心！\n[04:15.12]拜託！自己的責任——自！\n[04:18.16]己！扛！\n[04:20.40]自己的責任——自己扛！\n[04:24.44]（學務處六人組・純職位通用版）", "note": "純職位都會 R&B 版，123 張快節奏字卡 100% 對齊"}]}, {"id": "jiaowu", "category": "trilogy", "title": "《老師，自己的功課自己做》", "recipient": "🏫 校園行政三部曲・教務處", "style": "獻給每天努力維持理智的教務處全體同仁", "cover": "media/track_03_cover.jpg", "versions": [{"id": "jiaowu_1", "label": "🎹 俏皮放克爵士 v1", "genre": "112 BPM 俏皮諷刺流行 × 歡樂放克 × 搖擺爵士音樂劇男女對唱", "duration": "04:03", "mp3": "media/track_03_mp3.mp3", "mv": "media/track_03_mv.mp4", "cover": "media/track_03_cover.jpg", "lrc": "media/track_03_lrc.lrc", "lrc_text": "[ti:老師，自己的功課自己做（112 BPM 俏皮放克 × 搖擺爵士音樂劇 × 男女對唱版 1 (04:03)）]\n[ar:教務處全體同仁（SoulSong AI 校園行政三部曲）]\n[al:校園行政三部曲 - 教務處之歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《老師，自己的功課自己做》\n[00:01.00]老師早安～今天有看公告嗎？\n[00:03.40]沒有喔？沒關係！\n[00:05.68]反正教務處會再提醒您第八百遍！\n[00:11.28]星期一不想太早來\n[00:13.44]星期五想要早點離開\n[00:15.92]第一節精神還沒醒來\n[00:17.88]第八節又有私人安排\n[00:19.88]不要連堂 不要空堂\n[00:21.84]最好每天都能睡到自然醒來\n[00:24.48]一張課表改了又改\n[00:26.56]不如請神明親自安排！\n[00:28.88]公告明明寫得很清楚\n[00:31.40]群組提醒也不曾馬虎\n[00:33.92]老師笑著問我一句「請問這個到底要怎麼處理？」\n[00:37.92]我微笑 我深呼吸\n[00:39.76]默默喝下一口咖啡續命！\n[00:42.32]不知道～不清楚～\n[00:44.20]有事就來找教務處！\n[00:46.72]不會填～不會弄～\n[00:48.48]反正行政什麼都能做！\n[00:50.88]教書教了二十年\n[00:52.96]每個學期像第一天\n[00:55.28]年資默默往上加\n[00:57.32]行政能力還在放暑假！\n[00:59.92]老師呀 老師呀\n[01:01.60]自己的功課自己做！\n[01:03.92]學生忘記寫作業要被念\n[01:06.28]老師忘記繳件怎麼都沒錯？\n[01:08.92]段考命題催了好多天\n[01:11.00]成績繳交又到了期限\n[01:13.12]昨天提醒 今天再念\n[01:15.16]明天還要重新說一遍\n[01:17.52]課程計畫年年都要交\n[01:19.68]怎麼每年還是嚇一跳\n[01:21.92]公文公告全部都收到\n[01:24.08]就是不知道誰真的有看到！\n[01:26.72]會議點頭表示明白\n[01:28.88]散會之後全部重來\n[01:31.12]一問三不知 表情好可愛\n[01:33.40]教務處的血壓也跟著精彩！\n[01:35.92]不急不急 老師慢慢來\n[01:37.88]反正行政不用準時下班\n[01:40.08]您有家庭 您有安排\n[01:41.96]我們大概是住在學校的神仙！\n[01:44.48]您說很忙 我們理解 您說忘記\n[01:46.60]我們體貼 您說不會 我們教學 請問行政何時可以畢業？\n[01:49.52]調課不會 成績不會\n[01:51.12]系統登入也需要人陪\n[01:52.88]教學經驗累積二十年\n[01:55.04]行政操作永遠是新手體驗！\n[01:57.68]不知道～不清楚～\n[01:59.60]有事就來找教務處！\n[02:02.08]沒看到～沒聽說～\n[02:03.96]永遠都有全新的理由！\n[02:06.48]通知發了千百遍\n[02:08.72]問題依然沒有變\n[02:10.88]教務處不是安親班\n[02:12.96]老師也該學會自己辦！\n[02:15.32]老師呀 老師呀\n[02:17.12]自己的功課自己做！\n[02:19.52]要求學生準時交作業\n[02:22.08]怎麼自己期限總是錯過？\n[02:24.88]我們也有自己的課堂\n[02:26.88]也有家人等著我們回家\n[02:29.12]不是不願意伸手幫忙\n[02:31.36]只是責任不該只有我們扛\n[02:34.08]多一點理解 少一點推託\n[02:36.32]多一點主動 少一點藉口\n[02:38.48]如果大家都把自己的事情做好\n[02:42.20]教務處也能正常生活！\n[02:44.88]不知道～不清楚～\n[02:46.84]請先自己看清楚！\n[02:49.12]不會填～不會弄～\n[02:51.00]學習才能真正進步！\n[02:53.52]年資增加 智慧增加\n[02:55.68]責任拜託不要蒸發\n[02:57.92]別讓行政忙到頭髮掉光\n[03:00.52]您還悠閒喝著下午茶！\n[03:02.88]老師呀 老師呀\n[03:04.72]自己的功課自己做！\n[03:07.12]教育不是行政獨角戲\n[03:09.28]大家負責才有好生活！\n[03:11.52]教務處不會變魔術\n[03:13.56]更不是您的私人服務\n[03:15.92]我們只想完成工作\n[03:19.28]準時下班 好好生活！\n[03:22.72]排課靠數學，\n[03:24.56]調課靠外交，催件靠耐心，\n[03:27.12]溝通靠修養，\n[03:28.80]續命靠咖啡，下班靠奇蹟。\n[03:31.12]謝謝各位老師，\n[03:32.96]讓教務處每天都有新的修行。\n[03:35.52]教學年資持續增加，\n[03:37.92]行政流程重新出發。\n[03:40.32]祝福各位老師——\n[03:42.32]年年有進步，次次看公告，\n[03:44.64]準時交資料，自己的事情自己做好！\n[03:47.92]教務處全體同仁，\n[03:50.16]感恩您！讚嘆您！\n[03:52.08]拜託不要再打電話來問公告寫過的事情啦！\n[03:56.32]（歡樂笑聲・俏皮搖擺爵士銅管結束）", "note": "輕快鋼琴、烏克麗麗、拍手與銅管，102 張快節奏重拍字卡 100% 對齊"}, {"id": "jiaowu_2", "label": "🎺 百老匯搖擺爵士 v2", "genre": "112 BPM 百老匯搖擺爵士 × 俏皮放克男女對唱", "duration": "04:09", "mp3": "media/track_04_mp3.mp3", "mv": "media/track_04_mv.mp4", "cover": "media/track_04_cover.jpg", "lrc": "media/track_03_lrc.lrc", "lrc_text": "[ti:老師，自己的功課自己做（112 BPM 俏皮放克 × 搖擺爵士音樂劇 × 男女對唱版 1 (04:03)）]\n[ar:教務處全體同仁（SoulSong AI 校園行政三部曲）]\n[al:校園行政三部曲 - 教務處之歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《老師，自己的功課自己做》\n[00:01.00]老師早安～今天有看公告嗎？\n[00:03.40]沒有喔？沒關係！\n[00:05.68]反正教務處會再提醒您第八百遍！\n[00:11.28]星期一不想太早來\n[00:13.44]星期五想要早點離開\n[00:15.92]第一節精神還沒醒來\n[00:17.88]第八節又有私人安排\n[00:19.88]不要連堂 不要空堂\n[00:21.84]最好每天都能睡到自然醒來\n[00:24.48]一張課表改了又改\n[00:26.56]不如請神明親自安排！\n[00:28.88]公告明明寫得很清楚\n[00:31.40]群組提醒也不曾馬虎\n[00:33.92]老師笑著問我一句「請問這個到底要怎麼處理？」\n[00:37.92]我微笑 我深呼吸\n[00:39.76]默默喝下一口咖啡續命！\n[00:42.32]不知道～不清楚～\n[00:44.20]有事就來找教務處！\n[00:46.72]不會填～不會弄～\n[00:48.48]反正行政什麼都能做！\n[00:50.88]教書教了二十年\n[00:52.96]每個學期像第一天\n[00:55.28]年資默默往上加\n[00:57.32]行政能力還在放暑假！\n[00:59.92]老師呀 老師呀\n[01:01.60]自己的功課自己做！\n[01:03.92]學生忘記寫作業要被念\n[01:06.28]老師忘記繳件怎麼都沒錯？\n[01:08.92]段考命題催了好多天\n[01:11.00]成績繳交又到了期限\n[01:13.12]昨天提醒 今天再念\n[01:15.16]明天還要重新說一遍\n[01:17.52]課程計畫年年都要交\n[01:19.68]怎麼每年還是嚇一跳\n[01:21.92]公文公告全部都收到\n[01:24.08]就是不知道誰真的有看到！\n[01:26.72]會議點頭表示明白\n[01:28.88]散會之後全部重來\n[01:31.12]一問三不知 表情好可愛\n[01:33.40]教務處的血壓也跟著精彩！\n[01:35.92]不急不急 老師慢慢來\n[01:37.88]反正行政不用準時下班\n[01:40.08]您有家庭 您有安排\n[01:41.96]我們大概是住在學校的神仙！\n[01:44.48]您說很忙 我們理解 您說忘記\n[01:46.60]我們體貼 您說不會 我們教學 請問行政何時可以畢業？\n[01:49.52]調課不會 成績不會\n[01:51.12]系統登入也需要人陪\n[01:52.88]教學經驗累積二十年\n[01:55.04]行政操作永遠是新手體驗！\n[01:57.68]不知道～不清楚～\n[01:59.60]有事就來找教務處！\n[02:02.08]沒看到～沒聽說～\n[02:03.96]永遠都有全新的理由！\n[02:06.48]通知發了千百遍\n[02:08.72]問題依然沒有變\n[02:10.88]教務處不是安親班\n[02:12.96]老師也該學會自己辦！\n[02:15.32]老師呀 老師呀\n[02:17.12]自己的功課自己做！\n[02:19.52]要求學生準時交作業\n[02:22.08]怎麼自己期限總是錯過？\n[02:24.88]我們也有自己的課堂\n[02:26.88]也有家人等著我們回家\n[02:29.12]不是不願意伸手幫忙\n[02:31.36]只是責任不該只有我們扛\n[02:34.08]多一點理解 少一點推託\n[02:36.32]多一點主動 少一點藉口\n[02:38.48]如果大家都把自己的事情做好\n[02:42.20]教務處也能正常生活！\n[02:44.88]不知道～不清楚～\n[02:46.84]請先自己看清楚！\n[02:49.12]不會填～不會弄～\n[02:51.00]學習才能真正進步！\n[02:53.52]年資增加 智慧增加\n[02:55.68]責任拜託不要蒸發\n[02:57.92]別讓行政忙到頭髮掉光\n[03:00.52]您還悠閒喝著下午茶！\n[03:02.88]老師呀 老師呀\n[03:04.72]自己的功課自己做！\n[03:07.12]教育不是行政獨角戲\n[03:09.28]大家負責才有好生活！\n[03:11.52]教務處不會變魔術\n[03:13.56]更不是您的私人服務\n[03:15.92]我們只想完成工作\n[03:19.28]準時下班 好好生活！\n[03:22.72]排課靠數學，\n[03:24.56]調課靠外交，催件靠耐心，\n[03:27.12]溝通靠修養，\n[03:28.80]續命靠咖啡，下班靠奇蹟。\n[03:31.12]謝謝各位老師，\n[03:32.96]讓教務處每天都有新的修行。\n[03:35.52]教學年資持續增加，\n[03:37.92]行政流程重新出發。\n[03:40.32]祝福各位老師——\n[03:42.32]年年有進步，次次看公告，\n[03:44.64]準時交資料，自己的事情自己做好！\n[03:47.92]教務處全體同仁，\n[03:50.16]感恩您！讚嘆您！\n[03:52.08]拜託不要再打電話來問公告寫過的事情啦！\n[03:56.32]（歡樂笑聲・俏皮搖擺爵士銅管結束）", "note": "102 張快節奏重拍字卡 100% 對齊"}]}, {"id": "fudao", "category": "trilogy", "title": "《您好，請問誰來輔導我？》", "recipient": "🏫 校園行政三部曲・輔導室", "style": "獻給每天溫柔接住大家、卻忘了被擁抱的輔導室同仁", "cover": "media/track_05_cover.jpg", "versions": [{"id": "fudao_1", "label": "☕ 甜美 Bossa Nova v1", "genre": "98 BPM 甜美 Bossa Nova × 療癒 Lounge 爵士 × 慵懶女聲 × 黑色幽默", "duration": "04:56", "mp3": "media/track_05_mp3.mp3", "mv": "media/track_05_mv.mp4", "cover": "media/track_05_cover.jpg", "lrc": "media/track_05_lrc.lrc", "lrc_text": "[ti:您好，請問誰來輔導我？（98 BPM 甜美 Bossa Nova × 療癒爵士 × 黑色幽默版 1 (04:56)）]\n[ar:輔導室全體同仁（SoulSong AI 校園行政三部曲）]\n[al:校園行政三部曲 - 輔導室之歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《您好，請問誰來輔導我？》\n[00:01.00]您好～歡迎來到輔導室。\n[00:04.20]請慢慢說，不要著急。\n[00:07.12]我們理解您的感受，\n[00:09.12]也尊重您的情緒。\n[00:10.88]至於我們自己的情緒呢？\n[00:14.08]嗯～這個部分，\n[00:16.44]我們再找時間處理喔！\n[00:19.68]學生哭了 我們來安慰\n[00:22.00]學生生氣 我們來面對\n[00:24.28]學生不想上課 老師很疲憊\n[00:26.72]送來輔導室 一切就交給各位\n[00:29.40]導師說他真的沒辦法\n[00:31.64]家長說孩子在家很聽話\n[00:34.08]每個人都有自己的說法\n[00:36.60]輔導室微笑著接住大家\n[00:39.12]老師的委屈 我們理解\n[00:41.52]家長的情緒 我們化解\n[00:43.92]學生的心事 我們關切\n[00:46.16]自己的心情 改天再解決\n[00:48.72]深呼吸～慢慢來～\n[00:50.80]讓我們一起把心打開\n[00:53.68]微微笑～不要慌～\n[00:55.72]我的血壓正在慢慢往上！\n[00:58.48]沒關係呀～我們都理解\n[01:00.88]辛苦了呀～我們都體貼\n[01:03.28]你的情緒 我們來解\n[01:05.56]我的情緒 暫時先省略\n[01:08.12]好棒棒呀～大家都很累\n[01:10.48]請問誰來給我們安慰\n[01:12.92]每天教人如何面對崩潰\n[01:15.52]自己崩潰還得保持專業！\n[01:18.12]啦啦啦～世界多美好\n[01:20.24]輔導老師也需要被擁抱\n[01:22.88]同理心今天又快用完了\n[01:25.28]請問哪裡可以免費補充呀？\n[01:27.92]學生不聽話 送來輔導\n[01:30.40]班級管不動 送來輔導\n[01:32.88]親師溝通有一點困擾\n[01:34.96]是不是送來輔導就會變好？\n[01:37.52]我們沒有神奇的魔法\n[01:39.68]也不能一節課改變一個娃\n[01:42.32]家庭問題累積了十幾年\n[01:44.60]怎麼希望輔導一次就改善？\n[01:47.12]個案紀錄寫了一大疊\n[01:49.52]輔導會議開了一整天\n[01:51.92]好不容易整理完文件\n[01:54.16]新的個案又出現在眼前\n[01:56.72]您說孩子需要關懷 我們非常明白\n[01:58.96]但關懷不是轉介之後 您就可以置身事外\n[02:01.68]您說學生需要輔導 這個觀念非常好\n[02:03.88]但導師的班級經營 也不能因此全部登出掉\n[02:06.48]教育需要共同合作 不是一張轉介單就能解脫\n[02:09.92]輔導不是萬能的解藥 更不是責任轉移的通道\n[02:13.32]我們接住學生的難過\n[02:14.88]也接住大人的怒火\n[02:16.32]每天教大家建立心理界線\n[02:18.48]自己的界線卻被踩到變虛線！\n[02:20.88]沒關係呀～我們都理解\n[02:23.40]辛苦了呀～我們都體貼\n[02:25.92]你有壓力 你有感覺\n[02:28.12]我們的感覺下次再填寫\n[02:30.88]好棒棒呀～情緒很重要\n[02:33.04]記得每天給自己一個微笑\n[02:35.72]輔導老師說要好好睡覺\n[02:38.16]自己卻在加班寫輔導紀要！\n[02:40.88]啦啦啦～保持好心情\n[02:43.04]不要讓工作影響了身心\n[02:45.68]說得容易 做得好辛苦\n[02:48.04]誰來幫我們做個情緒評估？\n[02:50.88]其實我們也會疲憊\n[02:53.16]也有說不出口的眼淚\n[02:55.68]那些被帶進來的傷悲\n[02:58.16]有時也會留在我們心內\n[03:00.88]我們願意陪孩子走過黑暗\n[03:03.20]也願意給每個家庭一點溫暖\n[03:05.68]只是希望所有教育的夥伴\n[03:08.32]能夠一起努力 一起承擔\n[03:10.72]不要讓最懂得照顧別人的人\n[03:13.12]最後成了最容易被忽略的人\n[03:15.52]不要讓最擅長傾聽的人\n[03:17.80]連自己的心聲都無人過問\n[03:20.32]沒關係呀～但真的有關係\n[03:22.84]我們也有自己的情緒\n[03:25.12]願意傾聽 不代表沒有脾氣\n[03:27.28]願意協助 不代表責任可以轉移\n[03:29.92]辛苦了呀～也請體諒我們\n[03:32.32]輔導老師也是普通的人\n[03:34.72]不是天使 也不是聖人\n[03:36.92]更不是專門接收情緒的容器\n[03:39.92]啦啦啦～讓我們一起努力\n[03:42.32]不要只會把問題往外移\n[03:44.72]教育需要每個人的參與\n[03:47.08]不是只有輔導室負責療癒\n[03:49.68]願學生平安 願老師順利\n[03:52.00]願家長少一點莫名的怒氣\n[03:54.48]願大家都能照顧好自己\n[03:57.40]也願輔導室能準時下班休息！\n[04:00.88]輔導室每日自我提醒：\n[04:04.08]傾聽，要有耐心。\n[04:06.08]同理，要有真心。\n[04:08.08]紀錄，要夠細心。\n[04:10.48]開會，要很專心。\n[04:12.88]面對抱怨，要有平常心。\n[04:15.68]面對卸責，要修一顆慈悲心。\n[04:19.08]至於我們自己的身心健康……有空再關心。\n[04:24.48]親愛的老師們，\n[04:26.68]我們非常願意接住孩子的情緒，\n[04:29.68]但不代表也要接收各位不想承擔的責任喔～\n[04:34.08]最後，請大家跟著我們一起深呼吸。\n[04:38.88]吸氣——接納。吐氣——放下。\n[04:42.08]吸氣——同理。吐氣——怨氣。\n[04:44.88]您好，今天的輔導到此結束。\n[04:48.08]接下來，請問誰來輔導我們呢？\n[04:51.40]（甜美笑聲・輕快 Bossa Nova 爵士樂結束）", "note": "木吉他、溫暖鋼琴、刷鼓與長笛，115 張快節奏重拍字卡 100% 對齊"}, {"id": "fudao_2", "label": "🌿 療癒午後爵士 v2", "genre": "98 BPM 慵懶午後咖啡館 Bossa Nova × 溫柔女聲", "duration": "05:07", "mp3": "media/track_06_mp3.mp3", "mv": "media/track_06_mv.mp4", "cover": "media/track_06_cover.jpg", "lrc": "media/track_05_lrc.lrc", "lrc_text": "[ti:您好，請問誰來輔導我？（98 BPM 甜美 Bossa Nova × 療癒爵士 × 黑色幽默版 1 (04:56)）]\n[ar:輔導室全體同仁（SoulSong AI 校園行政三部曲）]\n[al:校園行政三部曲 - 輔導室之歌]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《您好，請問誰來輔導我？》\n[00:01.00]您好～歡迎來到輔導室。\n[00:04.20]請慢慢說，不要著急。\n[00:07.12]我們理解您的感受，\n[00:09.12]也尊重您的情緒。\n[00:10.88]至於我們自己的情緒呢？\n[00:14.08]嗯～這個部分，\n[00:16.44]我們再找時間處理喔！\n[00:19.68]學生哭了 我們來安慰\n[00:22.00]學生生氣 我們來面對\n[00:24.28]學生不想上課 老師很疲憊\n[00:26.72]送來輔導室 一切就交給各位\n[00:29.40]導師說他真的沒辦法\n[00:31.64]家長說孩子在家很聽話\n[00:34.08]每個人都有自己的說法\n[00:36.60]輔導室微笑著接住大家\n[00:39.12]老師的委屈 我們理解\n[00:41.52]家長的情緒 我們化解\n[00:43.92]學生的心事 我們關切\n[00:46.16]自己的心情 改天再解決\n[00:48.72]深呼吸～慢慢來～\n[00:50.80]讓我們一起把心打開\n[00:53.68]微微笑～不要慌～\n[00:55.72]我的血壓正在慢慢往上！\n[00:58.48]沒關係呀～我們都理解\n[01:00.88]辛苦了呀～我們都體貼\n[01:03.28]你的情緒 我們來解\n[01:05.56]我的情緒 暫時先省略\n[01:08.12]好棒棒呀～大家都很累\n[01:10.48]請問誰來給我們安慰\n[01:12.92]每天教人如何面對崩潰\n[01:15.52]自己崩潰還得保持專業！\n[01:18.12]啦啦啦～世界多美好\n[01:20.24]輔導老師也需要被擁抱\n[01:22.88]同理心今天又快用完了\n[01:25.28]請問哪裡可以免費補充呀？\n[01:27.92]學生不聽話 送來輔導\n[01:30.40]班級管不動 送來輔導\n[01:32.88]親師溝通有一點困擾\n[01:34.96]是不是送來輔導就會變好？\n[01:37.52]我們沒有神奇的魔法\n[01:39.68]也不能一節課改變一個娃\n[01:42.32]家庭問題累積了十幾年\n[01:44.60]怎麼希望輔導一次就改善？\n[01:47.12]個案紀錄寫了一大疊\n[01:49.52]輔導會議開了一整天\n[01:51.92]好不容易整理完文件\n[01:54.16]新的個案又出現在眼前\n[01:56.72]您說孩子需要關懷 我們非常明白\n[01:58.96]但關懷不是轉介之後 您就可以置身事外\n[02:01.68]您說學生需要輔導 這個觀念非常好\n[02:03.88]但導師的班級經營 也不能因此全部登出掉\n[02:06.48]教育需要共同合作 不是一張轉介單就能解脫\n[02:09.92]輔導不是萬能的解藥 更不是責任轉移的通道\n[02:13.32]我們接住學生的難過\n[02:14.88]也接住大人的怒火\n[02:16.32]每天教大家建立心理界線\n[02:18.48]自己的界線卻被踩到變虛線！\n[02:20.88]沒關係呀～我們都理解\n[02:23.40]辛苦了呀～我們都體貼\n[02:25.92]你有壓力 你有感覺\n[02:28.12]我們的感覺下次再填寫\n[02:30.88]好棒棒呀～情緒很重要\n[02:33.04]記得每天給自己一個微笑\n[02:35.72]輔導老師說要好好睡覺\n[02:38.16]自己卻在加班寫輔導紀要！\n[02:40.88]啦啦啦～保持好心情\n[02:43.04]不要讓工作影響了身心\n[02:45.68]說得容易 做得好辛苦\n[02:48.04]誰來幫我們做個情緒評估？\n[02:50.88]其實我們也會疲憊\n[02:53.16]也有說不出口的眼淚\n[02:55.68]那些被帶進來的傷悲\n[02:58.16]有時也會留在我們心內\n[03:00.88]我們願意陪孩子走過黑暗\n[03:03.20]也願意給每個家庭一點溫暖\n[03:05.68]只是希望所有教育的夥伴\n[03:08.32]能夠一起努力 一起承擔\n[03:10.72]不要讓最懂得照顧別人的人\n[03:13.12]最後成了最容易被忽略的人\n[03:15.52]不要讓最擅長傾聽的人\n[03:17.80]連自己的心聲都無人過問\n[03:20.32]沒關係呀～但真的有關係\n[03:22.84]我們也有自己的情緒\n[03:25.12]願意傾聽 不代表沒有脾氣\n[03:27.28]願意協助 不代表責任可以轉移\n[03:29.92]辛苦了呀～也請體諒我們\n[03:32.32]輔導老師也是普通的人\n[03:34.72]不是天使 也不是聖人\n[03:36.92]更不是專門接收情緒的容器\n[03:39.92]啦啦啦～讓我們一起努力\n[03:42.32]不要只會把問題往外移\n[03:44.72]教育需要每個人的參與\n[03:47.08]不是只有輔導室負責療癒\n[03:49.68]願學生平安 願老師順利\n[03:52.00]願家長少一點莫名的怒氣\n[03:54.48]願大家都能照顧好自己\n[03:57.40]也願輔導室能準時下班休息！\n[04:00.88]輔導室每日自我提醒：\n[04:04.08]傾聽，要有耐心。\n[04:06.08]同理，要有真心。\n[04:08.08]紀錄，要夠細心。\n[04:10.48]開會，要很專心。\n[04:12.88]面對抱怨，要有平常心。\n[04:15.68]面對卸責，要修一顆慈悲心。\n[04:19.08]至於我們自己的身心健康……有空再關心。\n[04:24.48]親愛的老師們，\n[04:26.68]我們非常願意接住孩子的情緒，\n[04:29.68]但不代表也要接收各位不想承擔的責任喔～\n[04:34.08]最後，請大家跟著我們一起深呼吸。\n[04:38.88]吸氣——接納。吐氣——放下。\n[04:42.08]吸氣——同理。吐氣——怨氣。\n[04:44.88]您好，今天的輔導到此結束。\n[04:48.08]接下來，請問誰來輔導我們呢？\n[04:51.40]（甜美笑聲・輕快 Bossa Nova 爵士樂結束）", "note": "115 張快節奏重拍字卡 100% 對齊"}]}, {"id": "xuewuchu_named", "category": "named", "title": "《學務處不是許願池》（六人組真名紀念版）", "recipient": "🔥 學務處六人組・真名紀念版", "style": "汶瑜主任 × 溱溱 × 智凱 × 團高 × 維珊 × 芝嫻", "cover": "media/track_09_cover.jpg", "versions": [{"id": "xuewuchu_name_rock", "label": "🎸 六人真名・純重搖滾版", "genre": "120 BPM 純重節奏搖滾 × 六人組點名饒舌怒吼", "duration": "04:46", "mp3": "media/track_09_mp3.mp3", "mv": "media/track_09_mv.mp4", "cover": "media/track_09_cover.jpg", "lrc": "media/track_09_lrc.lrc", "lrc_text": "[ti:學務處不是許願池（學務處六人組 R&B 旁白 × 搖滾饒舌戰歌）]\n[ar:學務處六人組（汶瑜主任、溱溱、智凱、團高、維珊、芝嫻）]\n[al:學務處不是許願池]\n[by:SoulSong AI 專屬寫歌與 MV 創作工坊]\n\n[00:00.00]《學務處不是許願池》\n[00:02.30]學生吵架，找學務處！\n[00:05.80]學生違規，找學務處！\n[00:08.60]家長抱怨，找學務處！\n[00:11.40]自己不處理，還是找學務處！\n[00:15.20]請問——學務處是行政單位，\n[00:19.30]還是你們的萬能許願池？\n[00:22.30]（鼓聲重擊・重金屬電吉他爆發）\n[00:30.80]一早電話響不停 屁股還沒坐熱又有事情\n[00:35.10]早餐放到中午還沒動靜 連上廁所都要看準時機\n[00:39.20]導師當了好幾年 遇到事情像是第一天\n[00:43.30]年年宣導 年年不見 一問三不知 演技倒是很熟練！\n[00:47.60]班級規範不知道 學生違規不知道\n[00:50.00]處理流程不知道 只有學務處在哪裡最知道！\n[00:52.30]導師會報講了多少遍 群組公告傳了多少件\n[00:56.40]資料送到你的眼前 最後還是「沒有人跟我說過耶！」\n[01:00.20]年資不斷往上加 經驗難道放暑假？\n[01:04.30]教書教了大半輩子 怎麼遇到問題又變成新手啦！\n[01:08.30]我們有血 我們有肉 我們也有情緒和感受\n[01:12.30]不是穿上行政的外衣以後 就該承受所有人的要求！\n[01:16.60]學務處不是許願池！更不是責任的垃圾場！\n[01:21.00]別把你不想處理的事情 全部丟給我們收場！\n[01:25.20]學務處不是消防隊！每天替你們四處救火！\n[01:29.20]你們一句「辛苦了」輕輕帶過 我們卻忙到連飯都沒得吃啊！\n[01:34.30]導師不是掛名的！行政不是萬能的！\n[01:37.40]責任不是用來推的！學務處的人也是人生父母養的！\n[01:40.20]年資增加 責任不能蒸發！經驗累積 不是累積裝傻！\n[01:44.20]該做的事 不要裝聾作啞！我們是來教育 不是來當你保母啊！\n[01:50.80]溱溱忙到快要原地升天 耐心快要耗光\n[01:54.20]智凱的事情一件接一件 忙到懷疑人生方向\n[01:58.00]團高才剛處理完眼前的事件 每天在混亂中奔忙\n[02:02.00]維珊的校安通報寫到地老天荒\n[02:04.30]芝嫻的電話與業務也接個沒完！\n[02:06.60]最強大的汶瑜主任坐鎮前線 一個人扛著風浪\n[02:09.40]扛住壓力 還要保護我們這群受傷的兵將\n[02:12.40]六個人撐起整個學務戰線 每天上演校園生存考驗\n[02:16.00]別人下班享受悠閒 我們還在收拾今天的殘局與抱怨！\n[02:20.00]你有你的班級 我有我的業務 不是掛著導師的名 就不用付出\n[02:23.80]學生有問題 你不先了解清楚 一句「請學務處處理」就結束！\n[02:28.20]不知道、不清楚、沒聽說！不會處理、不方便、事情多！\n[02:32.20]三百六十五天都有理由 只有推卸責任從來沒有出錯！\n[02:36.20]有事找行政 沒事嫌行政 需要幫忙時態度特別誠懇\n[02:39.30]我們可以協助！但不代表必須全部接手！\n[02:42.00]我們願意承擔！但不代表你就能兩手空空！\n[02:45.40]其實我們也曾滿懷理想 希望每個孩子都能健康成長\n[02:49.30]不是學生讓我們失去熱情 而是大人之間缺少了同理心\n[02:53.20]我們也想準時回家 也想好好吃頓晚餐\n[02:57.00]別讓願意負責的人 最後只剩下滿身傷痕。\n[03:03.50]學務處不是許願池！更不是你卸責的天堂！\n[03:07.40]請把你的責任扛在肩上 別再讓我們獨自抵擋！\n[03:11.50]溱溱！智凱！團高！維珊！芝嫻！\n[03:14.40]還有最強大的汶瑜主任坐鎮戰場！\n[03:20.00]六個人的命 也是命啊！六個人的累 誰來體諒？\n[03:23.40]不要讓認真負責的人忙到陣亡 不負責任的人卻能準時下班！\n[03:28.20]拒絕推卸！拒絕擺爛！拒絕把責任全部往外轉！\n[03:32.40]教育不是六個人的戰場 而是每一位教育工作者共同的擔當！\n[03:39.50]導師當越久，問題越多。公告發越多，看的人越少。\n[03:46.20]原來年資可以累積，責任卻可以歸零。\n[03:51.00]謝謝溱溱。謝謝智凱。謝謝團高。謝謝維珊。謝謝芝嫻。\n[03:58.50]更謝謝我們強大的汶瑜主任！\n[04:03.20]我們學務處六人組——\n[04:05.80]上班靠責任，做事靠良心，續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[04:14.20]有福不一定同享，但有事絕對一起扛！\n[04:18.20]請各位老師記住：資深，不代表可以裝傻；\n[04:22.00]不會，可以學；不懂，可以問；但不願意負責，就是態度問題！\n[04:27.40]我們是學務處，不是失職收容中心！\n[04:31.20]拜託！自己的責任——自！己！扛！\n[04:36.50]自己的責任——自！己！扛！（全員怒吼・重金屬電吉他爆發收尾）", "note": "保留汶瑜主任、溱溱、智凱、團高、維珊、芝嫻六人組本名紀念版"}, {"id": "xuewuchu_name_rnb", "label": "🎤 六人真名・R&B 搖滾版", "genre": "120 BPM R&B 律動旁白 × 重搖滾饒舌戰歌", "duration": "04:37", "mp3": "media/track_10_mp3.mp3", "mv": "media/track_10_mv.mp4", "cover": "media/track_10_cover.jpg", "lrc": "media/track_10_lrc.lrc", "lrc_text": "[ti:學務處不是許願池]\n[ar:學務處六人組 (汶瑜主任、溱溱、智凱、團高、維珊、芝嫻)]\n[al:學務處不是許願池 (搖滾饒舌職場戰歌)]\n[00:00.00]♪ 低沉貝斯與電吉他回授前奏 ♪\n[00:01.80]學生吵架，找學務處！\n[00:04.80]學生違規，找學務處！\n[00:07.80]家長抱怨，找學務處！\n[00:10.80]自己不處理，還是找學務處！\n[00:13.80]請問——學務處是行政單位，還是你們的萬能許願池？\n[00:19.30]♪ 鼓聲重擊 × Nu-Metal 重搖滾電吉他炸裂 ♪\n[00:27.80]一早電話響不停 屁股還沒坐熱又有事情\n[00:30.60]早餐放到中午還沒動靜 連上廁所都要看準時機\n[00:33.80]導師當了好幾年 遇到事情像是第一天\n[00:36.60]年年宣導 年年不見 一問三不知 演技倒是很熟練！\n[00:39.80]班級規範不知道 學生違規不知道\n[00:42.30]處理流程不知道 只有學務處在哪裡最知道！\n[00:45.20]導師會報講了多少遍 群組公告傳了多少件\n[00:48.20]資料送到你的眼前 最後還是「沒有人跟我說過耶！」\n[00:52.80]年資不斷往上加 經驗難道放暑假？\n[00:56.20]教書教了大半輩子 怎麼遇到問題又變成新手啦！\n[01:00.60]我們有血 我們有肉 我們也有情緒和感受\n[01:04.50]不是穿上行政的外衣以後 就該承受所有人的要求！\n[01:08.80]學務處不是許願池！更不是責任的垃圾場！\n[01:12.60]別把你不想處理的事情 全部丟給我們收場！\n[01:16.80]學務處不是消防隊！每天替你們四處救火！\n[01:20.60]你們一句「辛苦了」輕輕帶過 我們卻忙到連飯都沒得吃啊！\n[01:25.30]導師不是掛名的！行政不是萬能的！\n[01:28.80]責任不是用來推的！學務處的人也是人生父母養的！\n[01:32.20]年資增加 責任不能蒸發！經驗累積 不是累積裝傻！\n[01:35.80]該做的事 不要裝聾作啞！我們是來教育 不是來當你保母啊！\n[01:40.80]溱溱忙到快要原地升天 耐心快要耗光\n[01:43.50]智凱的事情一件接一件 忙到懷疑人生方向\n[01:46.20]團高才剛處理完眼前的事件 每天在混亂中奔忙\n[01:49.00]維珊的校安通報寫到地老天荒 芝嫻的電話與業務也接個沒完！\n[01:52.60]最強大的汶瑜主任坐鎮前線 一個人扛著風浪\n[01:56.80]扛住壓力 還要保護我們這群受傷的兵將\n[02:00.20]六個人撐起整個學務戰線 每天上演校園生存考驗\n[02:03.50]別人下班享受悠閒 我們還在收拾今天的殘局與抱怨！\n[02:06.80]你有你的班級 我有我的業務\n[02:08.60]不是掛著導師的名 就不用付出\n[02:10.50]學生有問題 你不先了解清楚\n[02:12.20]一句「請學務處處理」就結束！\n[02:14.00]不知道、不清楚、沒聽說！不會處理、不方便、事情多！\n[02:18.00]三百六十五天都有理由 只有推卸責任從來沒有出錯！\n[02:21.60]有事找行政，沒事嫌行政 需要幫忙時態度特別誠懇\n[02:24.80]我們可以協助！但不代表必須全部接手！\n[02:27.80]我們願意承擔！但不代表你就能兩手空空！\n[02:31.00]其實我們也曾滿懷理想 希望每個孩子都能健康成長\n[02:35.00]不是學生讓我們失去熱情 而是大人之間缺少了同理心\n[02:38.60]我們也想準時回家 也想好好吃頓晚餐\n[02:42.80]別讓願意負責的人 最後只剩下滿身傷痕。\n[02:48.50]學務處不是許願池！更不是你卸責的天堂！\n[02:52.30]請把你的責任扛在肩上 別再讓我們獨自抵擋！\n[02:56.20]溱溱！智凱！團高！維珊！芝嫻！\n[02:59.20]還有最強大的汶瑜主任坐鎮戰場！\n[03:01.60]六個人的命 也是命啊！六個人的累 誰來體諒？\n[03:05.00]不要讓認真負責的人忙到陣亡 不負責任的人卻能準時下班！\n[03:09.00]拒絕推卸！拒絕擺爛！拒絕把責任全部往外轉！\n[03:12.60]教育不是六個人的戰場 而是每一位教育工作者共同的擔當！\n[03:17.20]導師當越久，問題越多。\n[03:21.50]公告發越多，看的人越少。\n[03:25.60]原來年資可以累積，責任卻可以歸零。\n[03:31.00]謝謝溱溱。謝謝智凱。謝謝團高。謝謝維珊。謝謝芝嫻。\n[03:37.60]更謝謝我們強大的汶瑜主任！\n[03:41.50]我們學務處六人組——\n[03:44.00]上班靠責任，做事靠良心，續命靠咖啡，活著靠彼此，下班靠奇蹟！\n[03:51.20]有福不一定同享，但有事絕對一起扛！\n[03:55.60]請各位老師記住：資深，不代表可以裝傻；\n[03:59.30]不會，可以學；不懂，可以問；但不願意負責，就是態度問題！\n[04:04.80]我們是學務處，不是失職收容中心！\n[04:08.00]拜託！自己的責任——自！己！扛！\n[04:12.00]♪ 學務處不是許願池！自己的責任——自！己！扛！ ♪", "note": "六人組本名 R&B 搖滾版"}]}, {"id": "wenyu", "category": "dedication", "title": "《汶暖同行，瑜光引路》", "recipient": "💝 獻給最敬重的靠山 汶瑜主任", "style": "溫暖勵志流行 × 靈魂 R&B 活潑律動旁白", "cover": "media/track_11_cover.jpg", "versions": [{"id": "wenyu_rnb", "label": "🎵 R&B 活潑旁白主打版", "genre": "溫暖勵志流行 × 靈魂 R&B 律動", "duration": "04:43", "mp3": "media/track_11_mp3.mp3", "mv": "media/track_11_mv.mp4", "cover": "media/track_11_cover.jpg", "lrc": "media/track_11_lrc.lrc", "lrc_text": "[ti:汶暖同行，瑜光引路 (R&B 活潑旁白版)]\n[ar:獻給最敬重的靠山與引路人 汶瑜主任]\n[al:汶暖同行，瑜光引路 (R&B 律動紀念單曲)]\n[00:00.00]♪ 靈魂 R&B 鋼琴與溫暖節奏前奏 ♪\n[00:22.50]在忙碌的校園 迎接每個清晨\n[00:25.20]多少未知的考驗 多少沉重的責任\n[00:28.50]曾經的我也會慌張 也會失去方向\n[00:31.80]是妳教會我如何勇敢 如何堅強\n[00:37.20]一件件事情 妳耐心地教導\n[00:40.00]一句句提醒 讓我慢慢成長\n[00:47.50]從不知所措 到能獨當一面\n[00:50.50]每一步都有妳給我的力量\n[00:56.50]學務的日子 從來不算簡單\n[00:59.80]有說不出的委屈 有扛不完的責任\n[01:03.00]但每當我回頭 看見妳還在身旁\n[01:05.60]就有了繼續向前的勇敢\n[01:09.60]謝謝汶瑜 成為我的靠山\n[01:12.80]讓我面對風雨 不再害怕孤單\n[01:16.20]妳教會我的 不只是工作的方法\n[01:19.00]更是如何在困難中守住信念與善良\n[01:23.50]謝謝汶瑜 給我信任與勇敢\n[01:26.50]在我疲憊的時候 給我溫暖\n[01:30.00]因為知道身後有妳陪伴\n[01:33.00]我才敢迎著風 走向更遠的地方\n[01:39.00]多少次突如其來的狀況\n[01:41.80]多少次忙到忘記了時間\n[01:44.30]我們一起守護著校園的平安\n[01:47.00]也一起承受那些不被理解的心酸\n[01:50.20]妳教會我做事要有原則\n[01:52.80]也教會我待人要保有溫柔\n[01:55.60]面對是非要有清楚的判斷\n[01:58.40]遇到困難更要有承擔的肩膀\n[02:03.50]不是每一份努力都會被看見\n[02:06.50]不是每一份付出都能得到理解\n[02:09.40]但有妳的一句肯定與信任\n[02:12.20]就足以讓我重新充滿力量\n[02:16.50]謝謝汶瑜 成為我的靠山\n[02:19.80]在我受到委屈時 給我力量\n[02:23.00]妳不是替我走完每一段路\n[02:25.70]而是教會我如何走得更穩更遠\n[02:28.60]謝謝汶瑜 陪我一路成長\n[02:31.30]讓我從慌張走向獨立與堅強\n[02:34.20]這一路學到的智慧與擔當\n[02:37.00]都是我人生最珍貴的收藏\n[02:42.50]如果有一天 我也成為別人的依靠\n[02:45.60]我會記得妳曾經給我的教導\n[02:48.40]把妳給我的信任與溫暖\n[02:51.20]傳遞給每一個需要力量的夥伴\n[02:56.20]妳不只是我工作上的長官\n[02:59.00]更是值得我敬重的良師與夥伴\n[03:02.00]能與妳並肩守護這座校園\n[03:04.70]是我行政歲月裡最珍貴的緣\n[03:10.20]謝謝汶瑜 成為我的靠山\n[03:13.00]讓我在最艱難的時候依然勇敢\n[03:16.20]多少風雨 多少挑戰\n[03:18.60]有妳並肩 就多了一份心安\n[03:21.40]謝謝汶瑜 照亮我的方向\n[03:24.20]讓我學會責任 也學會擔當\n[03:27.20]願未來的日子 換我成為妳的力量\n[03:30.20]不只讓妳為我撐傘 也能與妳並肩抵擋\n[03:35.50]願所有辛苦都有人看見\n[03:38.20]願每一份付出都值得被感謝\n[03:41.20]學務路上有妳相伴\n[03:43.80]是我何其有幸的遇見\n[03:47.50]親愛的汶瑜主任！\n[03:50.80]謝謝妳願意教我，謝謝妳願意相信我，\n[03:53.60]謝謝妳在我面對困難時，成為我最堅強的後盾！\n[03:58.50]妳教會我的，不只是如何把事情做好，\n[04:02.00]更是如何成為一個有能力、有原則、有溫度，也有擔當的人！\n[04:07.50]何其有幸，與妳共事；\n[04:10.30]何其有福，得妳指引！\n[04:13.20]往後的學務路上，願我不只是被妳保護的人，\n[04:16.80]更能成為值得妳信任的戰友！\n[04:21.50]汶暖同行，瑜光引路！\n[04:24.20]謝謝妳是我的引路人，\n[04:26.80]也是我最強大的靠山！\n[04:30.00]♪ 汶暖同行，瑜光引路（R&B 溫暖律動尾奏）♪", "note": "Suno 演唱替換「汶瑜 → 文瑜」，MV 字幕顯示正確「汶瑜」"}]}, {"id": "zhenzhen", "category": "dedication", "title": "《溱心依舊，旭日長暖》", "recipient": "💝 獻給最珍惜的知己 溱溱 & 張旭", "style": "溫暖療癒系流行抒情 × 木吉他與大提琴", "cover": "media/track_12_cover.jpg", "versions": [{"id": "zhenzhen_zhangxu", "label": "🎵 溫暖療癒抒情版", "genre": "溫暖療癒系流行抒情 × 木吉他與大提琴", "duration": "04:48", "mp3": "media/track_12_mp3.mp3", "mv": "media/track_12_mv.mp4", "cover": "media/track_12_cover.jpg", "lrc": "media/track_12_lrc.lrc", "lrc_text": "[ti:溱心依舊，旭日長暖]\n[ar:獻給最珍惜的知己 溱溱與張旭]\n[al:溱心依舊，旭日長暖 (知己紀念單曲)]\n[00:00.00]♪ 溫柔鋼琴與木吉他深情前奏 ♪\n[00:14.20]還記得我們並肩工作的日常\n[00:17.70]有說不完的話 有笑不完的時光\n[00:21.00]從同事到朋友 從陌生到交心\n[00:24.50]不知不覺成了生命中的暖陽\n[00:28.50]後來有些故事掀起了風浪\n[00:32.10]有些誤會讓友情受了傷\n[00:35.50]曾經害怕我們會走向不同方向\n[00:39.00]還好你們依然留在我的身旁\n[00:43.00]不是每個人都願意理解過往\n[00:46.50]不是每份友情都能經得起風浪\n[00:49.80]謝謝你們看見我不完美的模樣\n[00:53.30]依然願意給我信任與陪伴\n[00:58.30]謝謝溱溱 謝謝張旭\n[01:02.00]謝謝你們始終沒有選擇離去\n[01:05.70]即使有過誤會 即使有過風雨\n[01:09.20]也沒有丟掉屬於我們的友誼\n[01:12.60]謝謝溱溱 謝謝張旭\n[01:16.20]讓我知道真心值得好好珍惜\n[01:19.90]人生最難得的不是相遇\n[01:23.60]而是經歷了一切 還願意繼續\n[01:30.00]♪ 溫暖大提琴與弦樂間奏 ♪\n[01:44.70]那些說不清楚的是是非非\n[01:48.30]曾讓我們的情誼有過傷悲\n[01:51.70]謝謝你們願意讓時間去化解\n[01:55.60]沒有讓過往帶走友情的珍貴\n[01:59.70]我不是一個完美的朋友\n[02:03.00]也有不擅長解釋的時候\n[02:06.50]謝謝你們沒有輕易放開手\n[02:09.80]讓這份情誼還能細水長流\n[02:14.00]走過了風雨 才明白晴天的可貴\n[02:17.40]經歷了誤會 才懂得信任的滋味\n[02:21.00]原來真正的朋友不一定沒有傷悲\n[02:24.30]而是有過傷痕 仍願意彼此珍惜\n[02:28.80]謝謝溱溱 謝謝張旭\n[02:32.50]謝謝你們一直都在我的生命裡\n[02:36.20]沒有因為別人的故事而遠離\n[02:40.00]沒有讓曾經的美好成為回憶\n[02:43.30]謝謝溱溱 謝謝張旭\n[02:47.00]這份情誼我會放在心底\n[02:50.70]往後無論歲月如何更替\n[02:54.40]願我們依然是彼此珍惜的知己\n[03:01.20]也願溱溱永遠笑得燦爛\n[03:05.00]願張旭陪妳走過歲月漫漫\n[03:08.50]願你們的家有溫暖的晚餐\n[03:12.00]有彼此的擁抱 有一生的相伴\n[03:15.80]如果有一天你們也累了\n[03:19.00]別忘了還有我們這些朋友\n[03:22.80]曾經是你們陪我走過風雨\n[03:26.30]往後也願為你們守候\n[03:30.00]謝謝你們 沒有讓我走散\n[03:33.40]沒有讓誤會成為友情的遺憾\n[03:37.20]那些曾經難以言說的心酸\n[03:40.80]因為你們的陪伴 多了一份溫暖\n[03:44.20]謝謝溱溱 謝謝張旭\n[03:47.60]在人生的路上留下真心的足跡\n[03:51.20]不求每天相見 不求時時聯繫\n[03:54.80]只願多年以後 我們依然熟悉\n[03:59.00]願你們夫妻恩愛 歲歲平安\n[04:02.20]願我們的友情不被歲月沖淡\n[04:06.00]從今天走向好多好多個明天\n[04:09.80]有你們這樣的朋友 就是我的幸運\n[04:16.50]溱溱、張旭……\n[04:21.20]謝謝你們看過我的狼狽，知道我的過往，\n[04:26.80]經歷過那些誤會，卻依然願意把我當成朋友。\n[04:33.50]謝謝你們沒有因為別人的故事，而丟掉屬於我們的友誼。\n[04:41.00]這一路走來，能夠遇見你們，\n[04:45.50]是我值得珍惜的福氣。\n[04:51.50]願溱溱一生有愛，願張旭一生平安，\n[04:57.20]願你們夫妻攜手到白頭，\n[05:00.80]願我們的友情永遠沒有句點。\n[05:06.50]人生難得遇見真心，更難得的是，\n[05:11.50]經歷風雨之後，你們依然還在。\n[05:19.50]謝謝你們，沒有走散……\n[05:25.00]♪ 溱心依舊，旭日長暖（願我們的友情細水長流）♪", "note": "Suno 演唱替換「溱溱 → 真真」，MV 字幕顯示正確「溱溱」"}]}, {"id": "wanrou", "category": "dedication", "title": "《兩份疼愛，一份牽掛》", "recipient": "💝 獻給最疼愛的 菀柔（肉肉）", "style": "溫暖敘事抒情 × 雙女聲深情對唱叮嚀", "cover": "media/track_13_cover.jpg", "versions": [{"id": "wanrou", "label": "🎵 雙女聲深情對唱版", "genre": "溫暖敘事抒情 × 雙女聲深情對唱", "duration": "04:32", "mp3": "media/track_13_mp3.mp3", "mv": "media/track_13_mv.mp4", "cover": "media/track_13_cover.jpg", "lrc": "media/track_13_lrc.lrc", "lrc_text": "[ti:兩份疼愛，一份牽掛]\n[ar:獻給我們最疼愛的 菀柔（肉肉）]\n[al:兩份疼愛，一份牽掛 溫暖雙女聲合唱]\n[00:00.00]♪ 鋼琴與大提琴深情前奏 ♪\n[00:14.00]沒有血緣 卻有家人的牽掛\n[00:19.80]從妳走進我們生命的那一剎那\n[00:26.50]妳的笑容 妳的任性與傻話\n[00:33.20]早已成為我們心中放不下的牽掛\n[00:40.50]我們疼妳 不需要任何理由\n[00:47.20]只希望妳的人生少一些憂愁\n[00:53.80]看著妳跌跌撞撞地往前走\n[01:00.50]總忍不住想再拉住妳的手\n[01:08.00]我們也曾有過年少輕狂\n[01:11.50]也曾為了感情迷失方向\n[01:14.80]那些歲月留下的許多傷\n[01:18.00]不願再出現在妳的臉龐\n[01:21.50]不是不懂妳對愛情的渴望\n[01:24.80]只是希望妳別忘了自己的光\n[01:28.00]有些路走錯了還能回頭\n[01:31.20]有些傷卻可能要用一生療養\n[01:36.00]我們淋過的雨 不願妳再淋\n[01:39.50]我們受過的傷 不願妳再經歷\n[01:43.00]如果那些過往能換來妳的清醒\n[01:46.20]曾經的眼淚 也就有了意義\n[01:53.00]菀柔啊 妳要慢慢長大\n[01:56.20]別再讓一時的執著困住步伐\n[01:59.50]成熟不是把眼淚偷偷嚥下\n[02:03.00]而是懂得為自己的選擇付出代價\n[02:06.50]肉肉啊 妳要好好愛自己\n[02:09.80]別為了愛情忘了人生的意義\n[02:13.00]願妳知是非 懂進退 惜情義\n[02:16.20]別讓真正疼妳的人為妳哭泣\n[02:23.00]有時我們生氣 有時我們失望\n[02:26.50]有時也被妳的選擇傷得心涼\n[02:29.80]嘴上說著以後不再管妳了\n[02:33.20]心裡卻還擔心妳過得怎麼樣\n[02:36.50]我們不是沒有自己的疲憊\n[02:39.80]也不是永遠都不會心碎\n[02:43.20]只是妳那一聲親暱的呼喚\n[02:46.50]總讓我們多了一份心軟與牽絆\n[02:51.20]我們可以陪妳 卻不能替妳成長\n[02:55.00]可以為妳撐傘 卻不能替妳抵擋\n[02:58.20]人生終究要靠自己的力量\n[03:01.50]才能走向真正想要的地方\n[03:05.00]別把疼愛當成理所當然\n[03:08.50]別把包容當作沒有底線\n[03:11.50]真正的家人不只陪妳歡笑\n[03:14.80]也會在妳走錯時 提醒妳回到正道\n[03:21.00]菀柔啊 願妳比我們更幸福\n[03:24.80]別再走上我們曾走過的冤枉路\n[03:28.20]願妳愛得坦蕩 活得清楚\n[03:31.50]每一次選擇都經得起時間的考驗\n[03:35.00]肉肉啊 願妳不再讓人擔憂\n[03:38.20]學會珍惜每一雙真心牽妳的手\n[03:41.50]有善良的心 也有清醒的眼眸\n[03:44.80]有獨立的勇氣 也有成熟的溫柔\n[03:48.50]我們不求妳回報多少疼愛\n[03:52.00]只希望妳能有更美好的未來\n[03:55.20]有一天看著妳成熟而自在\n[03:58.20]就是我們最欣慰的期待\n[04:02.50]親愛的菀柔，我們最疼愛的肉肉。\n[04:07.00]我們不希望妳成為任何人的樣子，\n[04:10.20]更不希望妳重複我們曾經的遺憾。\n[04:15.00]希望妳懂事，卻不必委屈；\n[04:18.50]希望妳善良，卻不再盲目；\n[04:21.80]希望妳深情，卻不失去理智；\n[04:25.20]希望妳自由，也懂得承擔責任。\n[04:29.00]我們與妳沒有血緣，\n[04:32.20]卻用真心把妳放在家人的位置。\n[04:35.50]願妳往後的每一步，\n[04:38.50]走得正、站得穩、心無愧。\n[04:43.00]我們走過的苦，願妳不必再走；\n[04:49.50]我們錯過的幸福，願妳好好擁有。\n[04:55.50]菀柔，願妳這一生，活得比我們更幸福……\n[05:03.00]♪ 兩份疼愛，一份牽掛（願菀柔一生幸福）♪", "note": "Suno 演唱替換「菀柔 → 宛柔」，MV 字幕顯示正確「菀柔」"}]}, {"id": "xinyou", "category": "dedication", "title": "《欣有所愛，嚴守一生》", "recipient": "💝 獻給 欣瑈 & 政嚴（新婚與生日祝福）", "style": "浪漫婚禮輕快流行 × 幸福甜蜜女聲", "cover": "media/track_14_cover.jpg", "versions": [{"id": "xinyou_zhengyan", "label": "🎵 浪漫婚禮祝福版", "genre": "浪漫婚禮輕快流行 × 幸福甜蜜女聲", "duration": "03:54", "mp3": "media/track_14_mp3.mp3", "mv": "media/track_14_mv.mp4", "cover": "media/track_14_cover.jpg", "lrc": "media/track_14_lrc.lrc", "lrc_text": "[ti:欣有所愛，嚴守一生]\n[ar:獻給最親愛的欣瑈與政嚴（1120生日＆新婚快樂）]\n[al:欣有所愛，嚴守一生 浪漫婚禮祝福]\n[00:00.00]♪ 溫暖木吉他、鋼琴與弦樂前奏 ♪\n[00:19.00]還記得那年 青春的模樣\n[00:23.80]妳帶著笑容 走進我的時光\n[00:28.50]曾經的學生 親愛的學妹\n[00:33.20]如今是我生命中珍貴的陪伴\n[00:38.20]從師生情誼 到無話不談\n[00:43.00]一路分享著生活的苦與甜\n[00:47.80]看著妳慢慢找到幸福的方向\n[00:52.80]今天終於穿上最美的嫁裳\n[00:58.00]十一月二十日 特別的一天\n[01:02.50]生日的燭光 映著幸福的容顏\n[01:07.20]政嚴牽起欣瑈的手\n[01:11.50]許下了相伴一生的誓言\n[01:17.00]欣瑈 生日快樂\n[01:19.80]願妳一生都有幸福陪著\n[01:22.20]政嚴 請好好珍惜她的獨特\n[01:24.80]陪她走過每個晨曦與日落\n[01:27.20]欣瑈 新婚快樂\n[01:29.80]願你們的愛是一首不老的歌\n[01:32.20]從今天的心動 到一生的承諾\n[01:35.00]牽著彼此的手 慢慢走到白頭\n[01:39.00]♪ 幸福弦樂與木吉他間奏 ♪\n[01:55.00]愛情不只是浪漫的鮮花\n[02:00.00]更是疲憊時有人等妳回家\n[02:04.80]是有人記得妳喜歡的味道\n[02:09.50]也願意包容妳偶爾的小脾氣\n[02:14.50]政嚴和欣瑈 從此有了一個家\n[02:19.20]一起收藏生活裡的酸甜苦辣\n[02:24.00]不需要每一天都燦爛如煙花\n[02:28.80]只願平凡的幸福 永遠不放假\n[02:34.00]政嚴啊 請牽好欣瑈的手\n[02:38.80]陪她歡笑 也陪她度過憂愁\n[02:43.50]欣瑈啊 願妳永遠自在溫柔\n[02:48.00]即使成為人妻 也別忘了自己的夢\n[02:53.20]而我依然是妳熟悉的朋友\n[02:56.20]無論經過多少春秋\n[02:58.80]從老師、學姊到知心好友\n[03:01.20]這份緣分 值得珍惜到永久\n[03:04.00]欣瑈與政嚴 幸福到永久\n[03:06.50]願你們相知相惜 歲歲相守\n[03:08.80]有說不完的話 有牽不膩的手\n[03:11.20]有吵架後依然願意擁抱的溫柔\n[03:13.80]欣瑈與政嚴 幸福到白首\n[03:16.20]願所有美好都在你們身旁停留\n[03:18.50]春有花開 夏有微風\n[03:21.00]秋有暖陽 冬有相擁\n[03:23.50]每一年的十一月二十日\n[03:26.80]都是值得慶祝的幸福日子\n[03:32.00]一支蠟燭 兩枚戒指\n[03:35.20]一個生日 兩個人的故事\n[03:37.50]一份承諾 一輩子的相知\n[03:39.80]把每個平凡寫成幸福的詩\n[03:42.20]願欣瑈 歲歲有欣喜\n[03:44.50]願政嚴 年年有相依\n[03:46.80]願你們三餐四季 朝朝暮暮\n[03:49.20]有愛 有家 有彼此\n[03:53.00]我的學生 我的學妹\n[03:58.00]我親愛的好朋友\n[04:02.50]生日快樂，新婚快樂。\n[04:07.50]願妳往後的每一天 都比今天更加幸福……\n[04:15.00]♪ 欣有所愛，嚴守一生（1120 幸福永恆）♪", "note": "Suno 演唱替換「欣瑈 → 欣柔」，MV 字幕顯示正確「欣瑈」"}]}, {"id": "yahui", "category": "dedication", "title": "《雅慧・逆風盛開》", "recipient": "💝 獻給最勇敢堅強的 雅慧", "style": "勵志流行搖滾 Pop Rock × 爆發女聲", "cover": "media/track_15_cover.jpg", "versions": [{"id": "yahui", "label": "🎵 勵志流行搖滾版", "genre": "勵志流行搖滾 Pop Rock × 爆發女聲", "duration": "03:48", "mp3": "media/track_15_mp3.mp3", "mv": "media/track_15_mv.mp4", "cover": "media/track_15_cover.jpg", "lrc": "media/track_15_lrc.lrc", "lrc_text": "[ti:雅慧・逆風盛開]\n[ar:獻給勇敢盛開的 雅慧]\n[al:逆風盛開 華語流行搖滾]\n[00:00.00]♪ 電影感鋼琴與電吉他前奏 ♪\n[00:18.50]曾把青春交給一個承諾\n[00:22.50]把自己的夢留在了角落\n[00:27.20]多少次心碎 多少次沉默\n[00:31.80]笑著說沒事 卻比誰都難過\n[00:36.80]不是沒有想過好好生活\n[00:41.00]只是有些傷 再愛也無法癒合\n[00:45.50]既然故事已經走到這一刻\n[00:50.00]何必再讓昨天困住明天的我\n[00:55.00]撕掉那些委屈的標籤\n[00:59.20]擦乾眼淚 不必再道歉\n[01:03.80]人生不是只有愛情這一篇\n[01:08.20]我要親手改寫我的明天\n[01:15.50]雅慧 勇敢地逆風盛開\n[01:20.00]就算全世界不懂妳的無奈\n[01:24.20]跌倒了就站起來\n[01:27.80]受過傷也能活得精彩\n[01:33.50]雅慧 別害怕重新再來\n[01:38.20]沒有誰能決定妳的未來\n[01:42.50]不必依靠誰的愛\n[01:46.00]妳自己就是最耀眼的存在\n[01:54.00]♪ 熱血電吉他 Solo 間奏 ♪\n[02:09.00]曾經為了別人忘了自己\n[02:13.50]如今要把快樂握在手心\n[02:18.00]不必急著證明誰值得珍惜\n[02:22.20]先學會擁抱最真實的自己\n[02:26.50]那些陪妳走過風雨的真心\n[02:31.00]那些不曾轉身離開的身影\n[02:35.50]請記得珍惜每一份情誼\n[02:39.50]別讓幸福建立在別人的傷心\n[02:45.00]我不要誰來拯救我的人生\n[02:49.50]也不要用愛掩飾所有傷痕\n[02:53.80]我敢承認曾經犯過的錯\n[02:58.00]也敢承擔自己選擇的結果\n[03:02.20]不逃避 不退縮\n[03:05.00]不再為誰失去自我\n[03:07.80]就算命運給我一場大雨\n[03:11.20]我也要活成自己的光芒！\n[03:23.50]雅慧 勇敢地逆風盛開\n[03:27.80]讓過去的傷成為新的色彩\n[03:32.20]帶著孩子走向未來\n[03:36.00]用自己的雙手擁抱精彩\n[03:41.50]雅慧 這一次為自己而愛\n[03:45.80]把真心留給值得的人善待\n[03:50.20]不負責任 不叫自由\n[03:53.80]問心無愧 才是真正的灑脫\n[04:03.50]八年的故事 不是人生的全部\n[04:08.20]轉身以後 還有更遼闊的路\n[04:12.50]願妳不負真心 不忘初衷\n[04:17.20]不困於情 不困於痛\n[04:25.00]雅慧—— 妳不是誰故事裡的遺憾\n[04:30.50]妳是自己人生裡\n[04:33.50]重新盛開的勇敢。\n[04:38.50]♪ 溫暖鋼琴與樂團希望尾奏 ♪", "note": "原名「雅慧」發音清晰"}]}, {"id": "wang_yuxin", "category": "dedication", "title": "《繞了一圈，還是妳》", "recipient": "💝 獻給摯愛老公 王郁鑫", "style": "深情華語流行抒情 × 鋼琴弦樂交響", "cover": "media/track_16_cover.jpg", "versions": [{"id": "wang_yuxin", "label": "🎵 深情流行抒情版", "genre": "深情華語流行抒情 × 鋼琴弦樂交響", "duration": "04:12", "mp3": "media/track_16_mp3.mp3", "mv": "media/track_16_mv.mp4", "cover": "media/track_16_cover.jpg", "lrc": "media/track_16_lrc.lrc", "lrc_text": "[ti:繞了一圈，還是妳（走散後還願意重逢）]\n[ar:維珊 獻給最愛的老公 王郁鑫]\n[al:2008-2025 屬於我們的永遠]\n[00:00.00]♪ 溫暖鋼琴與吉他前奏 ♪\n[00:15.00]那一年我們遇見了彼此\n[00:18.80]年少的心 還不懂愛的方式\n[00:22.50]二〇〇八年的那段故事\n[00:26.00]從此有了妳 郁鑫的名字\n[00:29.80]妳的笑容曾是我的天晴\n[00:33.50]妳的擁抱讓我感覺安心\n[00:37.20]以為牽了手 就能走一輩子\n[00:40.80]卻沒想到命運讓我們分離\n[00:44.80]♪ 深情吉他間奏 ♪\n[00:59.00]二〇一三年 我們走散了\n[01:02.80]曾經的承諾 留在回憶裡了\n[01:06.50]多少次想起熟悉的身影\n[01:10.00]卻只能在心裡輕喊郁鑫\n[01:13.80]時間帶走了青春的任性\n[01:17.50]卻帶不走曾經愛妳的心\n[01:21.00]我們各自走過不同風景\n[01:24.50]那些回憶卻依然那麼清晰\n[01:29.00]郁鑫啊郁鑫 我最愛的妳\n[01:32.50]繞了一圈 還是回到妳懷裡\n[01:36.80]從青澀年少到如今的年紀\n[01:40.20]妳依然是我心裡最深的唯一\n[01:44.20]郁鑫啊郁鑫 謝謝妳回來\n[01:47.80]讓那些遺憾有機會重新被愛\n[01:51.80]就算我們錯過了好多年的四季\n[01:55.50]我的心 還是想和妳走下去\n[01:59.50]♪ 溫暖過門間奏 ♪\n[02:06.20]二〇二五年 我們再次相遇\n[02:09.80]像是命運寫好的未完待續\n[02:13.50]這次不再只是年少的約定\n[02:17.20]而是想與妳共度往後光陰\n[02:21.00]五月二十日 那天我記得清晰\n[02:24.50]我們把名字寫進彼此生命\n[02:28.20]從此郁鑫是我最親愛的老公\n[02:31.80]維珊是妳願意牽手的伴侶\n[02:35.80]郁鑫 妳知道嗎\n[02:37.40]我並不是每一天都那麼堅強\n[02:39.20]有時我也會累 也會受傷\n[02:41.00]也想被妳疼愛 被妳放在心上\n[02:43.20]我不要轟轟烈烈的誓言\n[02:46.80]只想在難過時有妳陪在身邊\n[02:50.50]如果我們又為生活紅了眼眶\n[02:54.00]請記得當初 為何選擇了對方\n[02:58.20]郁鑫啊郁鑫 我深愛的妳\n[03:02.20]謝謝命運讓我們重新相遇\n[03:06.00]從二〇〇八走到二〇二五\n[03:09.50]原來我們的故事 還能繼續\n[03:13.20]郁鑫啊郁鑫 請妳相信\n[03:16.80]維珊想要的不過是一份安定\n[03:20.80]不求未來每一天都風平浪靜\n[03:24.50]只願風雨來時 妳還願意抱緊\n[03:28.80]如果有人問我愛情是什麼\n[03:32.20]我會說 是走散後還願意重逢\n[03:36.00]如果有人問我幸福在哪裡\n[03:39.50]我會輕輕說出妳的名字\n[03:42.50]王郁鑫……\n[03:44.20]這一次，讓我們好好相愛\n[03:46.80]別再把彼此留在人海\n[03:50.20]我是維珊，妳是郁鑫\n[03:53.80]從青春到白髮，我仍願意愛妳。\n[03:58.50]獻給我最愛的老公——王郁鑫（維珊）", "note": "原名「郁鑫」完整保留"}]}];
+  const PUBLIC_APP_URL = "https://lovepig740306-alt.github.io/soulsong-app/";
+
+  let allSongs = EMBEDDED_SONGS;
+  let filteredSongs = [...allSongs];
+  let currentSongIdx = 0;
+  let currentVerIdx = 0;
+  let playMode = 'mv';
+  let parsedLrc = [];
+  let activeLrcIdx = -1;
+
+  const mvVideo = document.getElementById('mvVideo');
+  const bgAudio = document.getElementById('bgAudio');
+  const seekSlider = document.getElementById('seekSlider');
+  const curTimeLbl = document.getElementById('curTimeLbl');
+  const durTimeLbl = document.getElementById('durTimeLbl');
+  const mainPlayBtn = document.getElementById('mainPlayBtn');
+  const npCover = document.getElementById('npCover');
+
+  function getActiveMedia() {
+    return playMode === 'mv' ? mvVideo : bgAudio;
+  }
+
+  function formatTime(sec) {
+    if (!sec || isNaN(sec)) return '00:00';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function initApp() {
+    renderPlaylist();
+    if (filteredSongs.length > 0) {
+      selectSong(0, 0, false);
+    }
+  }
+
+  function filterCategory(cat, btnEl) {
+    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    if (cat === 'all') {
+      filteredSongs = [...allSongs];
+      document.getElementById('playlistHeading').textContent = '全部精選曲目';
+    } else {
+      filteredSongs = allSongs.filter(s => s.category === cat);
+      const titles = {
+        trilogy: '🏫 校園行政三部曲（學務處・教務處・輔導室）',
+        named: '🔥 學務處六人組真名紀念版',
+        dedication: '💝 親友與恩師專屬紀念單曲'
+      };
+      document.getElementById('playlistHeading').textContent = titles[cat] || '精選曲目';
+    }
+
+    const totalVers = filteredSongs.reduce((acc, s) => acc + (s.versions ? s.versions.length : 1), 0);
+    document.getElementById('playlistCount').textContent = `共 ${filteredSongs.length} 首・${totalVers} 個版本`;
+
+    renderPlaylist();
+    if (filteredSongs.length > 0) {
+      selectSong(0, 0, false);
+    }
+  }
+
+  function renderPlaylist() {
+    const listEl = document.getElementById('songList');
+    listEl.innerHTML = '';
+    filteredSongs.forEach((song, idx) => {
+      const isAct = idx === currentSongIdx;
+      const card = document.createElement('div');
+      card.className = `song-card ${isAct ? 'active' : ''}`;
+      card.onclick = () => selectSong(idx, 0, true);
+      const verCount = song.versions ? song.versions.length : 1;
+      card.innerHTML = `
+        <img class="song-thumb" src="${song.cover}" alt="${song.title}">
+        <div class="song-info">
+          <div class="song-recipient">${song.recipient} ・ ${verCount} 個版本</div>
+          <div class="song-title">${song.title}</div>
+          <div class="song-style">${song.style}</div>
+        </div>
+        <div class="song-play-indicator">${isAct ? '🔊' : '▶'}</div>
+      `;
+      listEl.appendChild(card);
+    });
+  }
+
+  function selectSong(songIdx, verIdx = 0, autoPlay = true) {
+    currentSongIdx = songIdx;
+    currentVerIdx = verIdx;
+    const song = filteredSongs[songIdx];
+    if (!song) return;
+    const ver = (song.versions && song.versions[verIdx]) ? song.versions[verIdx] : song.versions[0];
+
+    renderPlaylist();
+    renderVersionChips(song);
+
+    document.getElementById('npCover').src = ver.cover || song.cover;
+    document.getElementById('npRecipient').textContent = song.recipient;
+    document.getElementById('npTitle').textContent = song.title;
+    document.getElementById('npStyle').textContent = `${ver.label} ・ ${ver.genre}`;
+    document.getElementById('mvSongLabel').textContent = `${ver.label} (${ver.duration || ''})`;
+
+    document.getElementById('miniCover').src = ver.cover || song.cover;
+    document.getElementById('miniTitle').textContent = song.title;
+    document.getElementById('miniSub').textContent = ver.label;
+
+    document.getElementById('dlMp3Btn').href = ver.mp3;
+    document.getElementById('dlMp3Btn').setAttribute('download', `${song.title}_${ver.label}.mp3`);
+    document.getElementById('dlMvBtn').href = ver.mv;
+    document.getElementById('dlMvBtn').setAttribute('download', `${song.title}_${ver.label}_MV.mp4`);
+    document.getElementById('dlLrcBtn').href = ver.lrc;
+    document.getElementById('dlLrcBtn').setAttribute('download', `${song.title}.lrc`);
+
+    const wasPlaying = !getActiveMedia().paused;
+    mvVideo.pause();
+    bgAudio.pause();
+
+    mvVideo.src = ver.mv;
+    mvVideo.poster = ver.cover || song.cover;
+    bgAudio.src = ver.mp3;
+
+    parseAndRenderLrc(ver.lrc_text || '');
+
+    if ('mediaSession' in navigator) {
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: song.title,
+          artist: song.recipient,
+          album: ver.label,
+          artwork: [{ src: ver.cover || song.cover, sizes: '512x512', type: 'image/jpeg' }]
+        });
+        navigator.mediaSession.setActionHandler('play', () => getActiveMedia().play());
+        navigator.mediaSession.setActionHandler('pause', () => getActiveMedia().pause());
+        navigator.mediaSession.setActionHandler('previoustrack', prevTrack);
+        navigator.mediaSession.setActionHandler('nexttrack', nextTrack);
+      } catch (e) {}
+    }
+
+    if (autoPlay || wasPlaying) {
+      getActiveMedia().play().catch(() => {});
+    }
+  }
+
+  function renderVersionChips(song) {
+    const bar = document.getElementById('versionSelector');
+    bar.innerHTML = '';
+    if (!song.versions || song.versions.length <= 1) {
+      bar.style.display = 'none';
+      return;
+    }
+    bar.style.display = 'flex';
+    song.versions.forEach((v, idx) => {
+      const chip = document.createElement('button');
+      chip.className = `ver-chip ${idx === currentVerIdx ? 'active' : ''}`;
+      chip.textContent = `${v.label} (${v.duration})`;
+      chip.onclick = () => selectSong(currentSongIdx, idx, true);
+      bar.appendChild(chip);
+    });
+  }
+
+  function parseAndRenderLrc(lrcText) {
+    parsedLrc = [];
+    activeLrcIdx = -1;
+    const box = document.getElementById('lrcBox');
+    box.innerHTML = '';
+
+    const lines = (lrcText || '').split(/\r?\n/);
+    const reg = /\[(\d{2}):(\d{2}\.\d{2,3})\](.*)/;
+    lines.forEach(line => {
+      const m = reg.exec(line);
+      if (m) {
+        const sec = parseInt(m[1], 10) * 60 + parseFloat(m[2]);
+        const content = m[3].trim();
+        if (content) parsedLrc.push({ time: sec, text: content });
+      }
+    });
+
+    if (parsedLrc.length === 0) {
+      parsedLrc.push({ time: 0, text: '🎵 點擊播放即可欣賞音樂與歌詞' });
+    }
+
+    parsedLrc.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'lrc-line';
+      div.id = `lrc-${idx}`;
+      div.textContent = item.text;
+      div.onclick = () => {
+        const media = getActiveMedia();
+        media.currentTime = item.time;
+        media.play().catch(() => {});
+      };
+      box.appendChild(div);
+    });
+  }
+
+  function setPlayMode(mode) {
+    if (mode === playMode) return;
+    const oldMedia = getActiveMedia();
+    const curTime = oldMedia.currentTime || 0;
+    const wasPlaying = !oldMedia.paused;
+    oldMedia.pause();
+
+    playMode = mode;
+    document.getElementById('modeMvBtn').classList.toggle('active', mode === 'mv');
+    document.getElementById('modeAudioBtn').classList.toggle('active', mode === 'audio');
+    document.getElementById('mvStage').style.display = mode === 'mv' ? 'flex' : 'none';
+    document.getElementById('audioStage').style.display = mode === 'audio' ? 'flex' : 'none';
+
+    const newMedia = getActiveMedia();
+    newMedia.currentTime = curTime;
+    if (wasPlaying) {
+      newMedia.play().catch(() => {});
+    }
+  }
+
+  function togglePlay() {
+    const media = getActiveMedia();
+    if (media.paused) {
+      media.play().catch(() => {});
+    } else {
+      media.pause();
+    }
+  }
+
+  function prevTrack() {
+    if (filteredSongs.length === 0) return;
+    const nextIdx = (currentSongIdx - 1 + filteredSongs.length) % filteredSongs.length;
+    selectSong(nextIdx, 0, true);
+  }
+
+  function nextTrack() {
+    if (filteredSongs.length === 0) return;
+    const song = filteredSongs[currentSongIdx];
+    if (song && song.versions && currentVerIdx + 1 < song.versions.length) {
+      selectSong(currentSongIdx, currentVerIdx + 1, true);
+    } else {
+      const nextIdx = (currentSongIdx + 1) % filteredSongs.length;
+      selectSong(nextIdx, 0, true);
+    }
+  }
+
+  function syncProgress(media) {
+    if (media !== getActiveMedia()) return;
+    const ct = media.currentTime || 0;
+    const dur = media.duration || 0;
+    curTimeLbl.textContent = formatTime(ct);
+    durTimeLbl.textContent = formatTime(dur);
+    if (dur > 0) {
+      seekSlider.max = dur;
+      seekSlider.value = ct;
+    }
+
+    if (parsedLrc.length > 0) {
+      let idx = 0;
+      for (let i = 0; i < parsedLrc.length; i++) {
+        if (ct + 0.12 >= parsedLrc[i].time) {
+          idx = i;
+        } else {
+          break;
+        }
+      }
+      if (idx !== activeLrcIdx) {
+        activeLrcIdx = idx;
+        document.querySelectorAll('.lrc-line.active').forEach(el => el.classList.remove('active'));
+        const activeEl = document.getElementById(`lrc-${idx}`);
+        if (activeEl) {
+          activeEl.classList.add('active');
+          activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+  }
+
+  [mvVideo, bgAudio].forEach(media => {
+    media.addEventListener('timeupdate', () => syncProgress(media));
+    media.addEventListener('play', () => {
+      mainPlayBtn.textContent = '⏸';
+      npCover.classList.add('playing');
+    });
+    media.addEventListener('pause', () => {
+      mainPlayBtn.textContent = '▶';
+      npCover.classList.remove('playing');
+    });
+    media.addEventListener('ended', () => {
+      nextTrack();
+    });
+  });
+
+  seekSlider.addEventListener('input', () => {
+    const media = getActiveMedia();
+    media.currentTime = parseFloat(seekSlider.value);
+  });
+
+  function openQrModal() {
+    document.getElementById('qrModal').classList.add('open');
+  }
+  function closeQrModal() {
+    document.getElementById('qrModal').classList.remove('open');
+  }
+
+  function copyAppUrl() {
+    const url = PUBLIC_APP_URL;
+    navigator.clipboard.writeText(url).then(() => {
+      alert('已複製公開網址：\n' + url + '\n\n現在可以直接貼到 LINE 傳給同事與親友囉！');
+    }).catch(() => {
+      prompt('請複製以下公開網址：', url);
+    });
+  }
+
+  function shareApp() {
+    const song = filteredSongs[currentSongIdx];
+    const shareTitle = song ? `SoulSong 隨身音樂館｜${song.title}` : 'SoulSong 隨身音樂 MV 館';
+    if (navigator.share) {
+      navigator.share({
+        title: shareTitle,
+        text: '快來聽我們專屬創作的「校園行政三部曲」與紀念單曲（100% 拍點同步歌詞 MV）！',
+        url: PUBLIC_APP_URL
+      }).catch(() => {});
+    } else {
+      openQrModal();
+    }
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  initApp();
+</script>
+</body>
+</html>
